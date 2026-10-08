@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Municipalidad de Padre Las Casas — Portal Digital Ciudadano</title>
+  <meta name="description" content="Portal digital ciudadano de la Municipalidad de Padre Las Casas. Ingresa y da seguimiento a tus trámites y solicitudes municipales en línea.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="brand-icon">🏛️</div>
+    <div class="brand-text">
+      <span class="brand-name">Padre Las Casas</span>
+      <span class="brand-sub">Portal Digital Municipal</span>
+    </div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="nav-link active">Inicio</a></li>
+    <li><a href="solicitud.html" class="nav-link">Nueva Solicitud</a></li>
+    <li><a href="consulta.html" class="nav-link">Consultar Estado</a></li>
+    <li><a href="login.html" class="nav-link">Acceso Interno</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <a href="solicitud.html" class="btn btn-primary btn-sm">+ Nueva Solicitud</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Plataforma Digital Municipal v1.0</div>
+    <h1 class="hero-title">
+      Trámites municipales<br>
+      <span class="gradient-text">más simples y rápidos</span>
+    </h1>
+    <p class="hero-desc">
+      Ingresa tus solicitudes, da seguimiento en tiempo real y recibe respuestas sin desplazarte. Una plataforma diseñada para toda la comunidad de Padre Las Casas, tanto urbana como rural.
+    </p>
+    <div class="hero-actions">
+      <a href="solicitud.html" class="btn btn-primary btn-lg">Ingresar Solicitud</a>
+      <a href="consulta.html" class="btn btn-secondary btn-lg">Consultar Estado</a>
+    </div>
+
+    <!-- Mini stats below hero -->
+    <div class="flex gap-lg mt-lg" style="padding-top:var(--sp-lg); border-top:1px solid var(--border); margin-top:var(--sp-xl);">
+      <div>
+        <div style="font-family:var(--font-brand); font-size:24px; font-weight:800; color:var(--accent-cyan);">1.247</div>
+        <div style="font-size:12px; color:var(--text-muted);">Solicitudes ingresadas</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-brand); font-size:24px; font-weight:800; color:var(--success);">89%</div>
+        <div style="font-size:12px; color:var(--text-muted);">Tasa de resolución</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-brand); font-size:24px; font-weight:800; color:var(--accent-blue);">3.2 días</div>
+        <div style="font-size:12px; color:var(--text-muted);">Tiempo promedio de respuesta</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating cards -->
+  <div class="hero-visual">
+    <div class="hero-card-float card-1">
+      <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em;">Ticket Activo</div>
+      <div class="ticket-id" style="margin-bottom:8px;">PLC-2024-0847</div>
+      <div class="badge badge-process" style="margin-bottom:8px;">En Revisión</div>
+      <div style="font-size:12px; color:var(--text-secondary);">Infraestructura Vial — Sector Rural</div>
+      <div class="progress-bar-wrap" style="margin-top:10px;">
+        <div class="progress-bar" style="width:60%;"></div>
+      </div>
+    </div>
+    <div class="hero-card-float card-2">
+      <div style="font-size:12px; color:var(--success); font-weight:700; margin-bottom:6px;">✓ Solicitud Resuelta</div>
+      <div style="font-size:13px; color:var(--text-secondary);">Alumbrado Público</div>
+      <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Hace 2 días</div>
+    </div>
+    <div class="hero-card-float card-3">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+        <div class="stat-icon cyan" style="width:36px; height:36px; font-size:16px; margin:0;">📊</div>
+        <div>
+          <div style="font-size:11px; color:var(--text-muted);">Hoy</div>
+          <div style="font-weight:700; font-size:15px;">+24 solicitudes</div>
+        </div>
+      </div>
+      <div class="chart-bars" style="height:60px;">
+        <div class="chart-bar" style="height:40%;"></div>
+        <div class="chart-bar" style="height:70%;"></div>
+        <div class="chart-bar" style="height:55%;"></div>
+        <div class="chart-bar" style="height:90%;"></div>
+        <div class="chart-bar" style="height:65%;"></div>
+        <div class="chart-bar" style="height:80%;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICIOS ===== -->
+<section class="section" style="background:var(--bg-secondary);">
+  <div class="section-header">
+    <div class="section-tag">Servicios Disponibles</div>
+    <h2 class="section-title">¿Qué puedes gestionar<br>desde aquí?</h2>
+    <p class="section-desc">Centraliza todos tus trámites municipales en un solo lugar, desde cualquier dispositivo y sin filas.</p>
+  </div>
+
+  <div class="grid-3" style="max-width:1100px; margin:0 auto;">
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:rgba(0,212,232,0.12);">🏗️</div>
+      <div class="feature-title">Infraestructura</div>
+      <p class="feature-desc">Reporta baches, fallas en alumbrado, daños en calles, veredas y espacios públicos de tu sector.</p>
+      <div style="margin-top:var(--sp-md);">
+        <span class="tag">Urbano</span> <span class="tag">Rural</span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:rgba(16,185,129,0.12);">🤝</div>
+      <div class="feature-title">Asistencia Social</div>
+      <p class="feature-desc">Solicita apoyo social, subsidios, atención de urgencia y derivación a programas municipales de bienestar.</p>
+      <div style="margin-top:var(--sp-md);">
+        <span class="tag">Prioritario</span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:rgba(59,123,248,0.12);">💧</div>
+      <div class="feature-title">Servicios Urbanos</div>
+      <p class="feature-desc">Gestiona solicitudes de agua, recolección de residuos, áreas verdes y servicios de higiene ambiental.</p>
+      <div style="margin-top:var(--sp-md);">
+        <span class="tag">Urbano</span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:rgba(124,58,237,0.12);">📋</div>
+      <div class="feature-title">Trámites Documentales</div>
+      <p class="feature-desc">Solicita certificados, permisos, patentes comerciales y otros documentos municipales en línea.</p>
+      <div style="margin-top:var(--sp-md);">
+        <span class="tag">Digital</span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:rgba(245,158,11,0.12);">🌿</div>
+      <div class="feature-title">Comunidades Rurales</div>
+      <p class="feature-desc">Canal especial para comunidades indígenas y rurales, con formularios simplificados y soporte prioritario.</p>
+      <div style="margin-top:var(--sp-md);">
+        <span class="tag" style="background:rgba(11,191,176,0.1); color:var(--accent-teal); border-color:rgba(11,191,176,0.2);">Rural</span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:rgba(239,68,68,0.12);">🚨</div>
+      <div class="feature-title">Urgencias Municipales</div>
+      <p class="feature-desc">Reporta situaciones de emergencia comunitaria para derivación inmediata a los equipos de respuesta rápida.</p>
+      <div style="margin-top:var(--sp-md);">
+        <span class="tag" style="background:rgba(239,68,68,0.1); color:var(--danger); border-color:rgba(239,68,68,0.2);">Alta Prioridad</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CÓMO FUNCIONA ===== -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-tag">Proceso Simple</div>
+    <h2 class="section-title">¿Cómo funciona el portal?</h2>
+    <p class="section-desc">En solo 3 pasos puedes ingresar tu solicitud y recibir una respuesta oficial de la municipalidad.</p>
+  </div>
+
+  <div class="steps" style="max-width:900px; margin:0 auto;">
+    <div class="step">
+      <div class="step-num active">1</div>
+      <div class="step-label">Completa el formulario de solicitud con tu información y descripción del problema</div>
+    </div>
+    <div class="step">
+      <div class="step-num active">2</div>
+      <div class="step-label">Recibe tu código de ticket único por correo o SMS para hacer seguimiento</div>
+    </div>
+    <div class="step">
+      <div class="step-num active">3</div>
+      <div class="step-label">El equipo municipal revisa y responde tu solicitud con comprobante oficial</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACCESO RÁPIDO ===== -->
+<section class="section" style="background:var(--bg-secondary);">
+  <div style="max-width:800px; margin:0 auto; text-align:center;">
+    <div class="section-tag">Acceso Rápido</div>
+    <h2 class="section-title">Consulta el estado de tu trámite</h2>
+    <p class="section-desc" style="margin-bottom:var(--sp-xl);">Ingresa tu código de ticket para ver el estado actual de tu solicitud en tiempo real.</p>
+
+    <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r-xl); padding:var(--sp-2xl); max-width:520px; margin:0 auto;">
+      <div class="search-bar" style="border-radius:var(--r-md); padding:14px 20px; margin-bottom:var(--sp-md);">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Ej: PLC-2024-0847" id="ticket-search">
+      </div>
+      <a href="consulta.html" class="btn btn-primary w-full" style="justify-content:center;">Consultar Estado →</a>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:var(--sp-md);">¿No tienes código? <a href="solicitud.html" style="color:var(--accent-cyan); text-decoration:none;">Ingresa una nueva solicitud</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-grid" style="max-width:1200px; margin:0 auto;">
+    <div>
+      <div class="flex items-center gap-md">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <span class="brand-name">Padre Las Casas</span>
+          <span class="brand-sub">Portal Digital Municipal</span>
+        </div>
+      </div>
+      <p class="footer-brand-desc">Plataforma digital para la gestión y optimización de trámites municipales de la comuna de Padre Las Casas, Región de La Araucanía.</p>
+    </div>
+    <div>
+      <div class="footer-title">Portal Ciudadano</div>
+      <ul class="footer-links">
+        <li><a href="solicitud.html">Nueva Solicitud</a></li>
+        <li><a href="consulta.html">Consultar Estado</a></li>
+        <li><a href="#">Preguntas Frecuentes</a></li>
+        <li><a href="#">Términos de Uso</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">Categorías</div>
+      <ul class="footer-links">
+        <li><a href="#">Infraestructura</a></li>
+        <li><a href="#">Asistencia Social</a></li>
+        <li><a href="#">Servicios Urbanos</a></li>
+        <li><a href="#">Comunidades Rurales</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">Municipalidad</div>
+      <ul class="footer-links">
+        <li><a href="#">Sobre Nosotros</a></li>
+        <li><a href="#">Transparencia</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="login.html">Acceso Funcionarios</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width:1200px; margin:0 auto;">
+    <span>© 2024 Municipalidad de Padre Las Casas — Sistema de Gestión Digital v1.0</span>
+    <span>Región de La Araucanía, Chile</span>
+  </div>
+</footer>
+
+</body>
+</html>

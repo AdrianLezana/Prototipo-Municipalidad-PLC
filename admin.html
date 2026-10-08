@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administración del Sistema — Plataforma Municipal Padre Las Casas</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-tabs { display: flex; gap: 4px; margin-bottom: var(--sp-xl); border-bottom: 1px solid var(--border); padding-bottom: var(--sp-md); }
+    .a-tab { padding: 8px 20px; border-radius: var(--r-full); font-size: 13.5px; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: all var(--transition); }
+    .a-tab.active { background: rgba(0,212,232,0.1); color: var(--accent-cyan); }
+    .a-tab:hover  { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+    .impact-box { background: var(--gradient-main); border-radius: var(--r-xl); padding: var(--sp-xl); color: #fff; text-align: center; position: relative; overflow: hidden; }
+    .impact-box::before { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.15); }
+    .impact-box > * { position: relative; z-index: 1; }
+    .impact-val { font-family: var(--font-brand); font-size: 42px; font-weight: 900; line-height: 1; }
+    .impact-label { font-size: 14px; opacity: 0.85; margin-top: 4px; }
+    .tenant-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-xl); padding: var(--sp-xl); transition: all var(--transition); }
+    .tenant-card:hover { border-color: var(--border-hover); }
+    .tenant-header { display: flex; align-items: center; gap: var(--sp-md); margin-bottom: var(--sp-md); }
+    .tenant-logo { width: 48px; height: 48px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .tenant-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: var(--sp-md); }
+    .t-stat { background: var(--bg-surface); border-radius: var(--r-sm); padding: 8px; text-align: center; }
+    .t-stat-v { font-family: var(--font-brand); font-size: 16px; font-weight: 700; }
+    .t-stat-l { font-size: 10.5px; color: var(--text-muted); }
+    .param-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .param-row:last-child { border-bottom: none; }
+    .param-label { font-size: 14px; font-weight: 500; }
+    .param-desc  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    /* Toggle switch (CSS only) */
+    .toggle { position: relative; width: 44px; height: 24px; }
+    .toggle input { display: none; }
+    .toggle-slider { position: absolute; inset: 0; background: var(--bg-surface); border-radius: var(--r-full); border: 1.5px solid var(--border); cursor: pointer; transition: all 0.3s; }
+    .toggle-slider::before { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--text-muted); top: 2px; left: 2px; transition: all 0.3s; }
+    .toggle input:checked + .toggle-slider { background: rgba(0,212,232,0.2); border-color: var(--accent-cyan); }
+    .toggle input:checked + .toggle-slider::before { background: var(--accent-cyan); transform: translateX(20px); }
+    .user-table-row { display: flex; align-items: center; gap: var(--sp-md); padding: 12px 16px; border-radius: var(--r-md); transition: background var(--transition); }
+    .user-table-row:hover { background: rgba(0,212,232,0.04); }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-brand">
+      <div class="brand-icon" style="width:32px;height:32px;font-size:14px;">🏛️</div>
+      <div class="brand-text">
+        <span class="brand-name" style="font-size:13px;">Padre Las Casas</span>
+        <span class="brand-sub" style="font-size:9px;">Plataforma Interna</span>
+      </div>
+    </a>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Principal</div>
+      <ul class="sidebar-nav">
+        <li><a href="dashboard.html" class="sidebar-link"><span class="s-icon">📊</span> Dashboard</a></li>
+        <li><a href="bandeja.html" class="sidebar-link"><span class="s-icon">📥</span> Bandeja <span class="s-badge">12</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Sistema</div>
+      <ul class="sidebar-nav">
+        <li><a href="admin.html" class="sidebar-link active"><span class="s-icon">⚙️</span> Administración</a></li>
+        <li><a href="admin.html" class="sidebar-link"><span class="s-icon">👥</span> Usuarios</a></li>
+        <li><a href="admin.html" class="sidebar-link"><span class="s-icon">🏢</span> Municipalidades</a></li>
+        <li><a href="admin.html" class="sidebar-link"><span class="s-icon">📈</span> Reportes</a></li>
+        <li><a href="login.html" class="sidebar-link"><span class="s-icon">🚪</span> Cerrar Sesión</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="user-avatar" style="background:linear-gradient(135deg,#7C3AED,#3B7BF8);">AD</div>
+        <div class="user-info">
+          <div class="user-name">Admin Sistemas</div>
+          <div class="user-role">Administrador</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--sp-lg);">
+      <div class="page-header" style="margin:0;">
+        <div class="page-title">Panel de Administración</div>
+        <div class="page-subtitle">Configuración, usuarios, reportes de impacto y módulo multi-municipio</div>
+      </div>
+      <div style="display:flex; gap:var(--sp-sm);">
+        <a href="#" class="btn btn-primary btn-sm">📥 Exportar Reporte</a>
+      </div>
+    </div>
+
+    <!-- ADMIN TABS -->
+    <div class="admin-tabs">
+      <a href="#" class="a-tab active">📊 Reporte de Impacto</a>
+      <a href="#" class="a-tab">👥 Usuarios y Roles</a>
+      <a href="#" class="a-tab">🏢 Multi-Municipio</a>
+      <a href="#" class="a-tab">⚙️ Parámetros</a>
+      <a href="#" class="a-tab">📋 Categorías</a>
+    </div>
+
+    <!-- ===== REPORTE DE IMPACTO ===== -->
+    <div style="margin-bottom:var(--sp-xl);">
+      <div style="font-family:var(--font-brand); font-size:16px; font-weight:700; margin-bottom:var(--sp-lg);">🌟 Análisis de Impacto y Valor Generado</div>
+
+      <!-- IMPACT BOXES -->
+      <div class="grid-4 mb-lg">
+        <div class="impact-box">
+          <div class="impact-val">2.847</div>
+          <div class="impact-label">Horas ahorradas a ciudadanos</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-icon cyan">💰</div>
+          <div class="stat-value">$4.2M</div>
+          <div class="stat-label">Ahorro estimado en costos operativos</div>
+          <div class="stat-change up">▲ Reducción 34%</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon green">😊</div>
+          <div class="stat-value">87%</div>
+          <div class="stat-label">Satisfacción ciudadana estimada</div>
+          <div class="stat-change up">▲ +12% pre-plataforma</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon purple">🌍</div>
+          <div class="stat-value">40%</div>
+          <div class="stat-label">Solicitudes de zonas rurales</div>
+          <div class="stat-change up">▲ Mayor inclusión</div>
+        </div>
+      </div>
+
+      <!-- Comparativo -->
+      <div class="grid-2 mb-lg">
+        <div class="card">
+          <div style="font-family:var(--font-brand); font-size:15px; font-weight:700; margin-bottom:var(--sp-lg);">⚖️ Antes vs Después de la Plataforma</div>
+          <div style="display:flex; flex-direction:column; gap:var(--sp-lg);">
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13.5px;">
+                <span>⏰ Tiempo de respuesta promedio</span>
+              </div>
+              <div style="display:flex; gap:var(--sp-sm); align-items:center;">
+                <div style="flex:1;">
+                  <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">Antes (presencial)</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:100%; background:linear-gradient(90deg,var(--danger),#F87171);"></div></div>
+                  <div style="font-size:12px; color:var(--danger); margin-top:3px;">8.5 días promedio</div>
+                </div>
+                <span style="color:var(--text-muted); font-size:18px;">→</span>
+                <div style="flex:1;">
+                  <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">Ahora (digital)</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:38%;"></div></div>
+                  <div style="font-size:12px; color:var(--success); margin-top:3px;">3.2 días promedio</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex; gap:var(--sp-sm); align-items:center;">
+                <div style="flex:1;">
+                  <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">Tasa de resolución anterior</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:61%; background:linear-gradient(90deg,var(--warning),#F59E0B);"></div></div>
+                  <div style="font-size:12px; color:var(--warning); margin-top:3px;">61% de resolución</div>
+                </div>
+                <span style="color:var(--text-muted); font-size:18px;">→</span>
+                <div style="flex:1;">
+                  <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">Tasa de resolución actual</div>
+                  <div class="progress-bar-wrap"><div class="progress-bar" style="width:89%;"></div></div>
+                  <div style="font-size:12px; color:var(--success); margin-top:3px;">89% de resolución</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-family:var(--font-brand); font-size:15px; font-weight:700; margin-bottom:var(--sp-lg);">🔥 Tensiones Detectadas (Patrones Críticos)</div>
+          <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+            <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); border-radius:var(--r-md); padding:var(--sp-md);">
+              <div style="font-weight:700; font-size:13px; color:var(--danger); margin-bottom:4px;">🚨 Comunidades Rurales Sin Conectividad</div>
+              <div style="font-size:12.5px; color:var(--text-secondary);">40% de solicitudes rurales con dificultades de acceso digital. Alta recurrencia en Aucán y Metrenco.</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.2); border-radius:var(--r-md); padding:var(--sp-md);">
+              <div style="font-weight:700; font-size:13px; color:var(--warning); margin-bottom:4px;">⚠️ Infraestructura: Cuello de Botella</div>
+              <div style="font-size:12.5px; color:var(--text-secondary);">38% de tickets son de infraestructura. Obras tiene capacidad límite de 15 tickets/semana.</div>
+            </div>
+            <div style="background:rgba(59,123,248,0.08); border:1px solid rgba(59,123,248,0.2); border-radius:var(--r-md); padding:var(--sp-md);">
+              <div style="font-weight:700; font-size:13px; color:var(--accent-blue); margin-bottom:4px;">ℹ️ Alta Demanda en Periodos de Lluvia</div>
+              <div style="font-size:12.5px; color:var(--text-secondary);">Los tickets de infraestructura aumentan +65% en temporada invernal. Requiere planificación anticipada.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== USUARIOS Y ROLES ===== -->
+    <div class="card mb-lg">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--sp-lg);">
+        <div style="font-family:var(--font-brand); font-size:16px; font-weight:700;">👥 Usuarios del Sistema</div>
+        <a href="#" class="btn btn-primary btn-sm">+ Nuevo Usuario</a>
+      </div>
+
+      <div>
+        <div class="user-table-row" style="background:rgba(0,212,232,0.04); border-bottom:1px solid var(--border);">
+          <div class="user-avatar">AM</div>
+          <div style="flex:1;">
+            <div style="font-weight:600; font-size:14px;">Ana Martínez López</div>
+            <div style="font-size:12px; color:var(--text-muted);">ana.martinez@padrelascasas.cl · Desarrollo Social</div>
+          </div>
+          <span class="badge" style="background:rgba(0,212,232,0.1); color:var(--accent-cyan);">Funcionaria</span>
+          <span style="font-size:12px; color:var(--success);">● Activa</span>
+          <div style="display:flex; gap:4px;">
+            <a href="#" class="btn btn-ghost btn-sm">Editar</a>
+          </div>
+        </div>
+        <div class="user-table-row" style="border-bottom:1px solid var(--border);">
+          <div class="user-avatar" style="background:linear-gradient(135deg,#0BBFB0,#3B7BF8);">CR</div>
+          <div style="flex:1;">
+            <div style="font-weight:600; font-size:14px;">Carlos Riquelme Soto</div>
+            <div style="font-size:12px; color:var(--text-muted);">carlos.riquelme@padrelascasas.cl · Dirección de Obras</div>
+          </div>
+          <span class="badge" style="background:rgba(0,212,232,0.1); color:var(--accent-cyan);">Inspector</span>
+          <span style="font-size:12px; color:var(--success);">● Activo</span>
+          <div style="display:flex; gap:4px;">
+            <a href="#" class="btn btn-ghost btn-sm">Editar</a>
+          </div>
+        </div>
+        <div class="user-table-row" style="border-bottom:1px solid var(--border);">
+          <div class="user-avatar" style="background:linear-gradient(135deg,#7C3AED,#3B7BF8);">PS</div>
+          <div style="flex:1;">
+            <div style="font-weight:600; font-size:14px;">Pedro Sáez Fuentes</div>
+            <div style="font-size:12px; color:var(--text-muted);">pedro.saez@padrelascasas.cl · Registro Civil</div>
+          </div>
+          <span class="badge" style="background:rgba(0,212,232,0.1); color:var(--accent-cyan);">Funcionario</span>
+          <span style="font-size:12px; color:var(--success);">● Activo</span>
+          <div style="display:flex; gap:4px;">
+            <a href="#" class="btn btn-ghost btn-sm">Editar</a>
+          </div>
+        </div>
+        <div class="user-table-row">
+          <div class="user-avatar" style="background:linear-gradient(135deg,#7C3AED,#060D1A);">AD</div>
+          <div style="flex:1;">
+            <div style="font-weight:600; font-size:14px;">Administrador del Sistema</div>
+            <div style="font-size:12px; color:var(--text-muted);">admin@padrelascasas.cl · Sistemas TI</div>
+          </div>
+          <span class="badge" style="background:rgba(124,58,237,0.15); color:var(--accent-purple);">Administrador</span>
+          <span style="font-size:12px; color:var(--success);">● Activo</span>
+          <div style="display:flex; gap:4px;">
+            <a href="#" class="btn btn-ghost btn-sm">Editar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MÓDULO MULTI-MUNICIPIO ===== -->
+    <div style="margin-bottom:var(--sp-xl);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--sp-lg);">
+        <div>
+          <div style="font-family:var(--font-brand); font-size:16px; font-weight:700;">🏢 Módulo Multi-Municipio (Replicabilidad)</div>
+          <div style="font-size:13px; color:var(--text-secondary); margin-top:4px;">Instancias configuradas independientes por municipalidad</div>
+        </div>
+        <a href="#" class="btn btn-primary btn-sm">+ Nueva Instancia</a>
+      </div>
+
+      <div class="grid-3">
+        <!-- Activa: Padre Las Casas -->
+        <div class="tenant-card" style="border-color:rgba(0,212,232,0.3);">
+          <div class="tenant-header">
+            <div class="tenant-logo" style="background:rgba(0,212,232,0.12);">🏛️</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Padre Las Casas</div>
+              <div style="font-size:12px; color:var(--text-muted);">Instancia Principal</div>
+            </div>
+            <span class="badge badge-resolved" style="margin-left:auto;">Activa</span>
+          </div>
+          <div class="tenant-stats">
+            <div class="t-stat"><div class="t-stat-v text-cyan">1.247</div><div class="t-stat-l">Tickets</div></div>
+            <div class="t-stat"><div class="t-stat-v text-success">89%</div><div class="t-stat-l">Resolución</div></div>
+            <div class="t-stat"><div class="t-stat-v">4</div><div class="t-stat-l">Funcionarios</div></div>
+            <div class="t-stat"><div class="t-stat-v">6</div><div class="t-stat-l">Departamentos</div></div>
+          </div>
+          <div style="margin-top:var(--sp-md); display:flex; gap:4px;">
+            <a href="dashboard.html" class="btn btn-primary btn-sm flex-1" style="justify-content:center;">Gestionar</a>
+          </div>
+        </div>
+
+        <!-- Demo: Temuco -->
+        <div class="tenant-card">
+          <div class="tenant-header">
+            <div class="tenant-logo" style="background:rgba(59,123,248,0.12);">🏙️</div>
+            <div>
+              <div style="font-weight:700; font-size:14px;">Municipio Temuco</div>
+              <div style="font-size:12px; color:var(--text-muted);">Instancia Demo</div>
+            </div>
+            <span class="badge badge-process" style="margin-left:auto;">Demo</span>
+          </div>
+          <div class="tenant-stats">
+            <div class="t-stat"><div class="t-stat-v" style="color:var(--accent-blue);">—</div><div class="t-stat-l">Tickets</div></div>
+            <div class="t-stat"><div class="t-stat-v">—</div><div class="t-stat-l">Resolución</div></div>
+            <div class="t-stat"><div class="t-stat-v">0</div><div class="t-stat-l">Funcionarios</div></div>
+            <div class="t-stat"><div class="t-stat-v">0</div><div class="t-stat-l">Dptos.</div></div>
+          </div>
+          <div style="margin-top:var(--sp-md); display:flex; gap:4px;">
+            <a href="#" class="btn btn-secondary btn-sm flex-1" style="justify-content:center;">Configurar</a>
+          </div>
+        </div>
+
+        <!-- Nueva instancia -->
+        <div class="tenant-card" style="border-style:dashed; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:200px;">
+          <div style="font-size:36px; margin-bottom:var(--sp-md); opacity:0.4;">+</div>
+          <div style="font-weight:700; font-size:15px; margin-bottom:8px;">Nueva Municipalidad</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:var(--sp-lg);">Configura una nueva instancia independiente para otro municipio</div>
+          <a href="#" class="btn btn-secondary btn-sm">Agregar Instancia</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PARÁMETROS ===== -->
+    <div class="card">
+      <div style="font-family:var(--font-brand); font-size:16px; font-weight:700; margin-bottom:var(--sp-lg);">⚙️ Parámetros del Sistema</div>
+
+      <div>
+        <div class="param-row">
+          <div>
+            <div class="param-label">Notificaciones por SMS</div>
+            <div class="param-desc">Envío automático de SMS al ingresar solicitud y al resolverla</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+        </div>
+        <div class="param-row">
+          <div>
+            <div class="param-label">Notificaciones por correo electrónico</div>
+            <div class="param-desc">Comprobante automático enviado al email del solicitante</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+        </div>
+        <div class="param-row">
+          <div>
+            <div class="param-label">Alertas de vencimiento de tickets</div>
+            <div class="param-desc">Notificación a funcionarios cuando un ticket está próximo a vencer</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+        </div>
+        <div class="param-row">
+          <div>
+            <div class="param-label">Plazo máximo de respuesta (días hábiles)</div>
+            <div class="param-desc">Días máximos permitidos para resolver una solicitud estándar</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:var(--sp-sm);">
+            <select class="form-control" style="width:auto; padding:7px 32px 7px 12px; font-size:13px;">
+              <option>3 días</option>
+              <option selected>5 días</option>
+              <option>7 días</option>
+              <option>10 días</option>
+            </select>
+          </div>
+        </div>
+        <div class="param-row">
+          <div>
+            <div class="param-label">Modo de Acceso Rural (Interfaz Liviana)</div>
+            <div class="param-desc">Activa una versión optimizada para conexiones lentas 3G/4G</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+        </div>
+        <div class="param-row">
+          <div>
+            <div class="param-label">Exportación automática de reportes mensuales</div>
+            <div class="param-desc">Generación automática de reporte CSV/Excel al término de cada mes</div>
+          </div>
+          <label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label>
+        </div>
+      </div>
+
+      <div style="margin-top:var(--sp-lg); display:flex; gap:var(--sp-sm); justify-content:flex-end;">
+        <a href="#" class="btn btn-ghost">Cancelar</a>
+        <a href="#" class="btn btn-primary">Guardar Cambios</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

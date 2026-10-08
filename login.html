@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso Funcionarios — Plataforma Interna Municipal Padre Las Casas</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .login-page { min-height: 100vh; display: flex; align-items: stretch; }
+    .login-left { flex: 1; background: var(--bg-secondary); border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--sp-3xl); position: relative; overflow: hidden; }
+    .login-right { width: 480px; display: flex; flex-direction: column; justify-content: center; padding: var(--sp-3xl); position: relative; z-index: 1; }
+    .login-left-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(0,212,232,0.07) 0%, transparent 60%); }
+    .login-visual { position: relative; z-index: 1; text-align: center; }
+    .login-logo { width: 80px; height: 80px; border-radius: var(--r-xl); background: var(--gradient-main); display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto var(--sp-xl); box-shadow: 0 0 40px rgba(0,212,232,0.3); }
+    .login-tagline { font-family: var(--font-brand); font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: var(--sp-md); }
+    .login-desc { font-size: 15px; color: var(--text-secondary); max-width: 380px; line-height: 1.65; margin-bottom: var(--sp-2xl); }
+    .stat-mini { display: flex; gap: var(--sp-xl); justify-content: center; }
+    .sm-item { text-align: center; }
+    .sm-val { font-family: var(--font-brand); font-size: 22px; font-weight: 800; color: var(--accent-cyan); }
+    .sm-lab { font-size: 12px; color: var(--text-muted); }
+    .divider-or { display: flex; align-items: center; gap: var(--sp-md); margin: var(--sp-lg) 0; }
+    .divider-or::before, .divider-or::after { content:''; flex:1; height:1px; background:var(--border); }
+    .divider-or span { font-size: 12px; color: var(--text-muted); }
+    .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-sm); margin-bottom: var(--sp-lg); }
+    .role-opt input[type="radio"] { display: none; }
+    .role-opt label { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: var(--sp-md) var(--sp-sm); border: 1.5px solid var(--border); border-radius: var(--r-md); cursor: pointer; transition: all var(--transition); text-align: center; font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+    .role-opt label:hover { border-color: var(--border-hover); color: var(--text-primary); }
+    .role-opt input[type="radio"]:checked + label { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(0,212,232,0.08); }
+    .role-opt label .r-icon { font-size: 22px; }
+    @media (max-width:768px) { .login-left { display:none; } .login-right { width:100%; } }
+  </style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<div class="login-page">
+  <!-- LEFT SIDE -->
+  <div class="login-left">
+    <div class="login-left-bg"></div>
+    <div class="login-visual">
+      <div class="login-logo">🏛️</div>
+      <h1 class="login-tagline">Plataforma Interna<br><span class="gradient-text">Municipal</span></h1>
+      <p class="login-desc">Gestiona solicitudes ciudadanas, asigna casos, actualiza estados y accede a reportes analíticos en tiempo real.</p>
+
+      <div class="stat-mini">
+        <div class="sm-item">
+          <div class="sm-val">47</div>
+          <div class="sm-lab">Tickets Activos</div>
+        </div>
+        <div class="sm-item">
+          <div class="sm-val">12</div>
+          <div class="sm-lab">Pendientes Hoy</div>
+        </div>
+        <div class="sm-item">
+          <div class="sm-val">89%</div>
+          <div class="sm-lab">Resueltos</div>
+        </div>
+      </div>
+
+      <!-- Mini floating card -->
+      <div class="card" style="margin-top:var(--sp-2xl); text-align:left; max-width:320px; animation:float1 5s ease-in-out infinite;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--sp-sm);">
+          <span style="font-size:12px; color:var(--text-muted);">Alerta urgente</span>
+          <span class="badge badge-pending">3 por vencer</span>
+        </div>
+        <div style="font-size:13px; color:var(--text-secondary);">Existen tickets con plazo máximo en las próximas 24 horas en zonas rurales.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE — LOGIN FORM -->
+  <div class="login-right">
+    <div style="margin-bottom:var(--sp-xl);">
+      <a href="index.html" style="color:var(--text-muted); text-decoration:none; font-size:13px; display:flex; align-items:center; gap:6px; margin-bottom:var(--sp-xl);">← Portal Ciudadano</a>
+      <h2 style="font-family:var(--font-brand); font-size:26px; font-weight:800; margin-bottom:var(--sp-sm);">Bienvenido/a</h2>
+      <p style="font-size:14px; color:var(--text-secondary);">Ingresa tus credenciales para acceder a la plataforma de gestión municipal.</p>
+    </div>
+
+    <!-- ROL SELECTOR -->
+    <div style="margin-bottom:var(--sp-lg);">
+      <label class="form-label" style="margin-bottom:var(--sp-sm);">Perfil de Acceso</label>
+      <div class="role-selector">
+        <div class="role-opt">
+          <input type="radio" name="rol" id="rol-funcionario" value="funcionario" checked>
+          <label for="rol-funcionario">
+            <span class="r-icon">👤</span>
+            Funcionario
+          </label>
+        </div>
+        <div class="role-opt">
+          <input type="radio" name="rol" id="rol-admin" value="admin">
+          <label for="rol-admin">
+            <span class="r-icon">🛡️</span>
+            Administrador
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-group">
+      <label class="form-label">Correo Institucional</label>
+      <input type="email" class="form-control" placeholder="funcionario@padrelascasas.cl" id="login-email">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" style="display:flex; justify-content:space-between;">
+        <span>Contraseña</span>
+        <a href="#" style="font-size:12px; color:var(--accent-cyan); text-decoration:none; font-weight:400; text-transform:none; letter-spacing:0;">¿Olvidaste tu contraseña?</a>
+      </label>
+      <input type="password" class="form-control" placeholder="••••••••" id="login-pass">
+    </div>
+
+    <div style="display:flex; align-items:center; gap:var(--sp-sm); margin-bottom:var(--sp-lg);">
+      <input type="checkbox" id="remember" style="accent-color:var(--accent-cyan); width:16px; height:16px; cursor:pointer;">
+      <label for="remember" style="font-size:13px; color:var(--text-secondary); cursor:pointer;">Mantener sesión iniciada</label>
+    </div>
+
+    <a href="dashboard.html" class="btn btn-primary w-full" style="justify-content:center; font-size:15px; padding:14px;">Ingresar a la Plataforma →</a>
+
+    <div class="divider-or"><span>O accede según tu departamento</span></div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-sm);">
+      <a href="dashboard.html" class="btn btn-ghost btn-sm" style="justify-content:center;">⚙️ Obras</a>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm" style="justify-content:center;">🤝 Social</a>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm" style="justify-content:center;">💧 Servicios</a>
+      <a href="admin.html" class="btn btn-ghost btn-sm" style="justify-content:center;">🛡️ Admin</a>
+    </div>
+
+    <div style="margin-top:var(--sp-xl); padding-top:var(--sp-lg); border-top:1px solid var(--border); text-align:center; font-size:12.5px; color:var(--text-muted);">
+      Plataforma de uso exclusivo para funcionarios municipales.<br>
+      Municipalidad de Padre Las Casas © 2024
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

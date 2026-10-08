@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Solicitud — Portal Digital Ciudadano</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="brand-icon">🏛️</div>
+    <div class="brand-text">
+      <span class="brand-name">Padre Las Casas</span>
+      <span class="brand-sub">Portal Digital Municipal</span>
+    </div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="nav-link">Inicio</a></li>
+    <li><a href="solicitud.html" class="nav-link active">Nueva Solicitud</a></li>
+    <li><a href="consulta.html" class="nav-link">Consultar Estado</a></li>
+    <li><a href="login.html" class="nav-link">Acceso Interno</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <a href="solicitud.html" class="btn btn-primary btn-sm">+ Nueva Solicitud</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="section">
+  <div class="section-header">
+    <div class="section-tag">Trámites en Línea</div>
+    <h1 class="section-title">Ingresar Nueva Solicitud</h1>
+    <p class="section-desc">Completa el siguiente formulario para generar un ticket de atención. Recibirás una copia de tu requerimiento en tu correo electrónico.</p>
+  </div>
+
+  <div class="card" style="max-width: 800px; margin: 0 auto;">
+    <form onsubmit="event.preventDefault(); window.location.href='consulta.html';">
+
+      <!-- TIPO DE SOLICITUD -->
+      <div style="margin-bottom: var(--sp-2xl);">
+        <label class="form-label mb-md" style="display:block;">1. ¿Qué tipo de problema deseas reportar? <span class="req">*</span></label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="tipo" id="t-infra" checked>
+            <label for="t-infra">
+              <span class="opt-icon">🏗️</span>
+              <span class="opt-title">Infraestructura</span>
+              <span class="opt-desc">Calles, baches, veredas</span>
+            </label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="tipo" id="t-social">
+            <label for="t-social">
+              <span class="opt-icon">🤝</span>
+              <span class="opt-title">Social</span>
+              <span class="opt-desc">Ayuda y subsidios</span>
+            </label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="tipo" id="t-servicios">
+            <label for="t-servicios">
+              <span class="opt-icon">💧</span>
+              <span class="opt-title">Servicios</span>
+              <span class="opt-desc">Agua, basura, limpieza</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATOS DEL SOLICITANTE -->
+      <div style="margin-bottom: var(--sp-2xl);">
+        <label class="form-label mb-md" style="display:block;">2. Datos del Solicitante</label>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre Completo <span class="req">*</span></label>
+            <input type="text" class="form-control" placeholder="Ej: Juan Pérez González">
+          </div>
+          <div class="form-group">
+            <label class="form-label">RUT <span class="req">*</span></label>
+            <input type="text" class="form-control" placeholder="12.345.678-9">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Correo Electrónico <span class="req">*</span></label>
+            <input type="email" class="form-control" placeholder="correo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono / Celular <span class="req">*</span></label>
+            <input type="tel" class="form-control" placeholder="+56 9 1234 5678">
+          </div>
+        </div>
+      </div>
+
+      <!-- UBICACIÓN Y DETALLE -->
+      <div style="margin-bottom: var(--sp-2xl);">
+        <label class="form-label mb-md" style="display:block;">3. Detalles del Requerimiento</label>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Sector <span class="req">*</span></label>
+            <select class="form-control">
+              <option value="" disabled selected>Selecciona un sector...</option>
+              <option value="urbano">Zona Urbana</option>
+              <option value="rural">Zona Rural / Comunidades</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dirección / Ubicación <span class="req">*</span></label>
+            <input type="text" class="form-control" placeholder="Calle, número o referencia">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Descripción del Problema <span class="req">*</span></label>
+          <textarea class="form-control" placeholder="Describe detalladamente el problema para que el equipo municipal pueda evaluarlo..."></textarea>
+        </div>
+      </div>
+
+      <!-- ADJUNTOS -->
+      <div style="margin-bottom: var(--sp-2xl);">
+        <label class="form-label mb-sm" style="display:block;">4. Evidencia Fotográfica (Opcional)</label>
+        <div class="upload-area">
+          <div class="upload-icon">📸</div>
+          <div class="upload-text">Arrastra imágenes aquí o <strong>haz clic para seleccionar</strong></div>
+          <div class="form-hint" style="margin-top: 8px;">Formatos soportados: JPG, PNG (Máx 5MB)</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="display: flex; justify-content: flex-end; gap: var(--sp-md);">
+        <a href="index.html" class="btn btn-ghost">Cancelar</a>
+        <!-- Al hacer clic, simulará el envío llevando a la vista de consulta -->
+        <button type="submit" class="btn btn-primary">Enviar Solicitud →</button>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-grid" style="max-width:1200px; margin:0 auto;">
+    <div>
+      <div class="flex items-center gap-md">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <span class="brand-name">Padre Las Casas</span>
+          <span class="brand-sub">Portal Digital Municipal</span>
+        </div>
+      </div>
+      <p class="footer-brand-desc">Plataforma digital para la gestión y optimización de trámites municipales de la comuna de Padre Las Casas, Región de La Araucanía.</p>
+    </div>
+    <div>
+      <div class="footer-title">Portal Ciudadano</div>
+      <ul class="footer-links">
+        <li><a href="solicitud.html">Nueva Solicitud</a></li>
+        <li><a href="consulta.html">Consultar Estado</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width:1200px; margin:0 auto;">
+    <span>© 2024 Municipalidad de Padre Las Casas — Sistema de Gestión Digital v1.0</span>
+  </div>
+</footer>
+</body>
+</html>
