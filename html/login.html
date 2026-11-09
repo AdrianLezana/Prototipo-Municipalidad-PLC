@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es" data-font-size="normal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso Funcionarios — Plataforma Interna Municipal Padre Las Casas</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .login-container-card {
+      max-width: 540px;
+      margin: 40px auto;
+      background: #FFFFFF;
+      border: 3px solid var(--border-main);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      box-shadow: var(--shadow-card);
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-page);">
+
+  <!-- Enlace accesible de salto -->
+  <a href="#contenido-principal" class="skip-link">Saltar al formulario de acceso</a>
+
+  <!-- BARRA SUPERIOR DE ACCESIBILIDAD -->
+  <aside class="accessibility-topbar" aria-label="Herramientas de accesibilidad">
+    <div class="topbar-container">
+      <div class="topbar-phone">
+        <span>Plataforma Interna Municipal de Padre Las Casas</span>
+      </div>
+
+      <div class="topbar-controls">
+
+        <!-- Selector de tema (Claro / Oscuro / Alto Contraste Suave) -->
+        <div class="theme-selector-group" role="group" aria-label="Cambiar tema visual de la página">
+          <span class="theme-group-label">Modo:</span>
+          
+          <button type="button" 
+                  class="btn-toolbar active" 
+                  id="btn-theme-light"
+                  aria-pressed="true"
+                  data-tooltip-what="Modo Claro: fondo blanco y limpio, ideal para leer de día."
+                  data-tooltip-action="Al hacer clic, la página se mostrará con fondo claro y letras oscuras.">
+            <span aria-hidden="true">☀️</span>
+            <span class="toolbar-btn-text">Claro</span>
+          </button>
+
+          <button type="button" 
+                  class="btn-toolbar" 
+                  id="btn-theme-dark"
+                  aria-pressed="false"
+                  data-tooltip-what="Modo Oscuro: fondo azul noche municipal de la anterior versión con tonos cian."
+                  data-tooltip-action="Al hacer clic, la página cambiará al fondo azul noche con los colores de la municipalidad.">
+            <span aria-hidden="true">🌙</span>
+            <span class="toolbar-btn-text">Oscuro</span>
+          </button>
+
+          <button type="button" 
+                  class="btn-toolbar" 
+                  id="btn-theme-contrast"
+                  aria-pressed="false"
+                  data-tooltip-what="Modo Alto Contraste Suave: letras blancas y crema sobre fondo oscuro, sin colores chillones ni amarillos eléctricos."
+                  data-tooltip-action="Al hacer clic, activa la máxima legibilidad con tonos cálidos y descansados para la vista.">
+            <span aria-hidden="true">👁️</span>
+            <span class="toolbar-btn-text">Contraste</span>
+          </button>
+        </div>
+
+        <div class="font-size-group" role="group" aria-label="Cambiar tamaño de letra">
+          <span class="font-group-label">Letra:</span>
+          <button type="button" class="btn-toolbar" id="btn-font-decrease" aria-label="Reducir letra"
+                  data-tooltip-what="Botón para achicar la letra."
+                  data-tooltip-action="Al hacer clic reduce el tamaño del texto.">
+            <span aria-hidden="true" style="font-size: 15px; font-weight: 800;">A-</span>
+          </button>
+          <button type="button" class="btn-toolbar" id="btn-font-reset" aria-label="Letra normal"
+                  data-tooltip-what="Botón para tamaño normal."
+                  data-tooltip-action="Al hacer clic restablece el texto a tamaño estándar.">
+            <span aria-hidden="true" style="font-size: 18px; font-weight: 800;">A</span>
+          </button>
+          <button type="button" class="btn-toolbar" id="btn-font-increase" aria-label="Aumentar letra"
+                  data-tooltip-what="Botón para agrandar la letra."
+                  data-tooltip-action="Al hacer clic aumenta el tamaño del texto.">
+            <span aria-hidden="true" style="font-size: 22px; font-weight: 800;">A+</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-toolbar active" id="btn-toggle-guided" aria-pressed="true"
+                data-tooltip-what="Interruptor del Asistente Guiado."
+                data-tooltip-action="Al hacer clic activa o desactiva las ayudas en pantalla.">
+          <span aria-hidden="true">💡</span>
+          <span class="toolbar-btn-text">Modo Guiado</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ENCABEZADO -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-brand"
+         data-tooltip-what="Logotipo de la Municipalidad."
+         data-tooltip-action="Al hacer clic volverá al portal ciudadano.">
+        <div class="brand-crest" aria-hidden="true">🏛️</div>
+        <div class="brand-text-block">
+          <span class="brand-entity">Municipalidad de Padre Las Casas</span>
+          <span class="brand-subline">Plataforma de Gestión Interna</span>
+        </div>
+      </a>
+
+      <div>
+        <a href="../index.html" class="btn btn-secondary"
+           data-tooltip-what="Botón para volver a la página ciudadana."
+           data-tooltip-action="Al hacer clic regresará al portal de los vecinos.">
+          ← Volver al Portal Ciudadano
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main id="contenido-principal" class="section">
+    <div class="login-container-card">
+      
+      <div style="text-align: center; margin-bottom: 24px;">
+        <span class="section-tag-senior">Acceso Restringido</span>
+        <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--color-primary); margin-top: 8px; margin-bottom: 8px;">
+          Ingreso para Funcionarios
+        </h1>
+        <p style="font-size: 1.05rem; color: var(--text-muted);">
+          Ingrese su correo institucional y clave para gestionar las solicitudes vecinales.
+        </p>
+      </div>
+
+      <form action="bandeja.html" method="GET">
+        
+        <!-- SELECCIÓN DE ROL -->
+        <fieldset style="border: 2px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+          <legend style="font-weight: 800; font-size: 1.05rem; color: var(--text-main); padding: 0 8px;">
+            Seleccione su Perfil:
+          </legend>
+          <div style="display: flex; gap: 16px; margin-top: 8px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; font-size: 1.05rem;">
+              <input type="radio" name="rol" value="funcionario" checked style="width: 22px; height: 22px;">
+              <span>👤 Funcionario / Inspector</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; font-size: 1.05rem;">
+              <input type="radio" name="rol" value="admin" style="width: 22px; height: 22px;">
+              <span>🛡️ Administrador</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- CORREO -->
+        <div style="margin-bottom: 20px;">
+          <label for="login-email" class="form-label-senior">
+            Correo Electrónico Institucional:
+          </label>
+          <input type="email" 
+                 id="login-email" 
+                 name="email" 
+                 class="form-control-senior" 
+                 placeholder="ejemplo@padrelascasas.cl" 
+                 value="carlos.riquelme@padrelascasas.cl" 
+                 required
+                 data-tooltip-what="Casillero para ingresar su correo institucional municipal."
+                 data-tooltip-action="Escriba su dirección de correo terminada en @padrelascasas.cl">
+        </div>
+
+        <!-- CONTRASEÑA -->
+        <div style="margin-bottom: 20px;">
+          <label for="login-pass" class="form-label-senior">
+            Contraseña de Seguridad:
+          </label>
+          <input type="password" 
+                 id="login-pass" 
+                 name="pass" 
+                 class="form-control-senior" 
+                 placeholder="••••••••" 
+                 value="password123" 
+                 required
+                 data-tooltip-what="Casillero para ingresar su contraseña secreta."
+                 data-tooltip-action="Escriba su clave de funcionario. Nunca comparta su contraseña con terceros.">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
+          <input type="checkbox" id="remember" checked style="width: 22px; height: 22px; cursor: pointer;">
+          <label for="remember" style="font-size: 1.05rem; font-weight: 600; cursor: pointer;">
+            Recordar mis datos en este equipo
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-hero" style="width: 100%; justify-content: center;"
+                data-tooltip-what="Botón para ingresar a la plataforma interna."
+                data-tooltip-action="Al hacer clic verificará sus datos y le llevará a la bandeja de solicitudes.">
+          <span>Ingresar a la Plataforma →</span>
+        </button>
+
+      </form>
+
+      <div style="margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--border-subtle); text-align: center;">
+        <span style="display: block; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; font-size: 1rem;">
+          Acceso rápido a departamentos:
+        </span>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+          <a href="bandeja.html" class="btn btn-secondary" style="font-size: 0.95rem; padding: 10px 16px;">
+            ⚙️ Dirección de Obras
+          </a>
+          <a href="bandeja.html" class="btn btn-secondary" style="font-size: 0.95rem; padding: 10px 16px;">
+            🤝 DIDECO / Social
+          </a>
+          <a href="admin.html" class="btn btn-secondary" style="font-size: 0.95rem; padding: 10px 16px;">
+            🛡️ Administración
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer-senior" role="contentinfo">
+    <div class="footer-inner-senior" style="justify-content: center; text-align: center;">
+      <div>
+        <p class="footer-text">
+          Uso exclusivo para personal autorizado de la Ilustre Municipalidad de Padre Las Casas.
+        </p>
+        <p class="footer-text" style="font-size: 0.95rem; color: #94A3B8;">
+          Región de La Araucanía, Chile © 2024
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/accessibility.js"></script>
+
+</body>
+</html>

@@ -1,85 +1,664 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-font-size="normal">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Municipalidad de Padre Las Casas — Certificado de Residencia</title>
-  <meta name="description" content="Solicita tu Certificado de Residencia en línea en la Municipalidad de Padre Las Casas.">
-  <link rel="stylesheet" href="style.css?v=2">
+  <title>Municipalidad de Padre Las Casas — Portal Accesible de Atención Ciudadana</title>
+  <meta name="description"
+        content="Portal de trámites y atención ciudadana de la Municipalidad de Padre Las Casas, diseñado con altos estándares de accesibilidad para personas mayores.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-  <a href="index.html" class="navbar-brand">
-    <div class="brand-icon">🏛️</div>
-    <div class="brand-text">
-      <span class="brand-name">Padre Las Casas</span>
-      <span class="brand-sub">Trámites en Línea</span>
+<!-- Enlace de salto accesible para usuarios de teclado y lectores de pantalla -->
+<a href="#contenido-principal" class="skip-link">Saltar directamente al contenido principal</a>
+
+<!-- ============================================================
+     1. BARRA SUPERIOR DE ACCESIBILIDAD Y AYUDA AL ADULTO MAYOR
+     ============================================================ -->
+<aside class="accessibility-topbar" aria-label="Herramientas de accesibilidad y ayuda">
+  <div class="topbar-container">
+
+    <!-- Fono directo de ayuda gratuita -->
+    <div class="topbar-phone">
+      <span aria-hidden="true">📞</span>
+      <span>¿Necesita ayuda telefónica gratuita?</span>
+      <a href="tel:800200400" class="phone-link"
+         data-tooltip-what="Número de teléfono gratuito de atención al vecino de Padre Las Casas."
+         data-tooltip-action="Al hacer clic desde un celular llamará directamente a un funcionario municipal que le atenderá con gusto.">
+        Llamar al 800 200 400
+      </a>
     </div>
-  </a>
-  <ul class="navbar-nav">
-    <li><a href="index.html" class="nav-link active">Inicio</a></li>
-    <li><a href="solicitud.html" class="nav-link">Solicitar Certificado</a></li>
-    <li><a href="consulta.html" class="nav-link">Consultar Estado</a></li>
-    <li><a href="login.html" class="nav-link">Acceso Interno</a></li>
-  </ul>
-  <div class="navbar-actions">
-    <!-- Botón de accesibilidad opcional -->
-    <button class="btn btn-ghost btn-sm" onclick="document.body.classList.toggle('high-contrast')">👁️ Alto Contraste</button>
-    <a href="solicitud.html" class="btn btn-primary btn-sm">Solicitar Certificado</a>
+
+    <!-- Controles de accesibilidad (Modo Claro/Oscuro, tamaño de letra, voz, modo guiado) -->
+    <div class="topbar-controls">
+
+      <!-- Selector de tema (Claro / Oscuro / Alto Contraste Suave) -->
+      <div class="theme-selector-group" role="group" aria-label="Cambiar tema visual de la página">
+        <span class="theme-group-label">Modo:</span>
+
+        <button type="button" class="btn-toolbar active" id="btn-theme-light" aria-pressed="true"
+                data-tooltip-what="Modo Claro: fondo blanco y limpio, ideal para leer con buena luz."
+                data-tooltip-action="Al hacer clic, la página se mostrará con fondo claro y letras oscuras de alto contraste.">
+          <span aria-hidden="true">☀️</span>
+          <span class="toolbar-btn-text">Claro</span>
+        </button>
+
+        <button type="button" class="btn-toolbar" id="btn-theme-dark" aria-pressed="false"
+                data-tooltip-what="Modo Oscuro: fondo azul noche municipal de la anterior versión con tonos cian."
+                data-tooltip-action="Al hacer clic, la página cambiará al fondo azul noche con los colores de la municipalidad.">
+          <span aria-hidden="true">🌙</span>
+          <span class="toolbar-btn-text">Oscuro</span>
+        </button>
+
+        <button type="button" class="btn-toolbar" id="btn-theme-contrast" aria-pressed="false"
+                data-tooltip-what="Modo Alto Contraste Suave: letras blancas y crema sobre fondo oscuro, sin colores chillones ni amarillos eléctricos."
+                data-tooltip-action="Al hacer clic, activa la máxima legibilidad con tonos cálidos y descansados para la vista.">
+          <span aria-hidden="true">👁️</span>
+          <span class="toolbar-btn-text">Contraste</span>
+        </button>
+      </div>
+
+      <!-- Selector de tamaño de letra (A- / Normal / A+) -->
+      <div class="font-size-group" role="group" aria-label="Cambiar tamaño de letra">
+        <span class="font-group-label" id="font-group-desc">Letra:</span>
+
+        <button type="button" class="btn-toolbar" id="btn-font-decrease" aria-label="Reducir tamaño de letra"
+                data-tooltip-what="Botón A menos para achicar la letra del texto."
+                data-tooltip-action="Al hacer clic, el tamaño de las letras de toda la página se hará más pequeño.">
+          <span aria-hidden="true" style="font-size: 15px; font-weight: 800;">A-</span>
+          <span class="sr-only">Reducir letra</span>
+        </button>
+
+        <button type="button" class="btn-toolbar" id="btn-font-reset" aria-label="Restablecer tamaño de letra normal"
+                data-tooltip-what="Botón para volver al tamaño de letra normal y estándar."
+                data-tooltip-action="Al hacer clic, restablece las letras al tamaño inicial recomendado.">
+          <span aria-hidden="true" style="font-size: 18px; font-weight: 800;">A</span>
+          <span class="sr-only">Letra normal</span>
+        </button>
+
+        <button type="button" class="btn-toolbar" id="btn-font-increase" aria-label="Aumentar tamaño de letra"
+                data-tooltip-what="Botón A más para agrandar la letra del texto."
+                data-tooltip-action="Al hacer clic, todas las letras y palabras se harán más grandes y fáciles de leer.">
+          <span aria-hidden="true" style="font-size: 22px; font-weight: 800;">A+</span>
+          <span class="sr-only">Aumentar letra</span>
+        </button>
+      </div>
+
+      <!-- Botón Modo Guiado / Asistente -->
+      <button type="button" class="btn-toolbar active" id="btn-toggle-guided" aria-pressed="true"
+              data-tooltip-what="Interruptor del Asistente Guiado paso a paso."
+              data-tooltip-action="Al hacer clic, activa o desactiva las ayudas amarillas que le explican detalladamente para qué sirve cada parte de la pantalla.">
+        <span aria-hidden="true">💡</span>
+        <span class="toolbar-btn-text">Modo Guiado: ACTIVO</span>
+      </button>
+
+      <!-- Botón Asistente de Voz / Lectura en audio -->
+      <button type="button" class="btn-toolbar" id="btn-toggle-voice" aria-pressed="false"
+              data-tooltip-what="Interruptor de lectura por voz en audio."
+              data-tooltip-action="Al hacer clic, una voz clara en español le leerá en voz alta las explicaciones y los textos de los botones que elija.">
+        <span aria-hidden="true">🔊</span>
+        <span class="toolbar-btn-text">Voz: DESACTIVADA</span>
+      </button>
+
+    </div>
+  </div>
+</aside>
+
+<!-- Banner de lectura de voz activa (solo visible cuando el asistente habla) -->
+<div id="speaking-banner" class="speaking-indicator-banner" style="display: none;" role="status"
+     aria-live="assertive">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span aria-hidden="true">🔊</span>
+    <span>El asistente de voz está leyendo en este momento...</span>
+  </div>
+  <button type="button" id="btn-stop-speech" class="btn-stop-audio">
+    ⏹️ Detener lectura de voz
+  </button>
+</div>
+
+<!-- ============================================================
+     2. ENCABEZADO PRINCIPAL Y LOGOTIPO MUNICIPAL
+     ============================================================ -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="index.html" class="header-brand"
+       data-tooltip-what="Logotipo oficial de la Municipalidad de Padre Las Casas."
+       data-tooltip-action="Al hacer clic volverá siempre a la pantalla de inicio de este portal.">
+      <div class="brand-crest" aria-hidden="true">🏛️</div>
+      <div class="brand-text-block">
+        <span class="brand-entity">Municipalidad de Padre Las Casas</span>
+        <span class="brand-subline">Portal de Atención y Trámites para la Comunidad</span>
+      </div>
+    </a>
+
+    <!-- Botón de asistencia directa -->
+    <div>
+      <a href="#ayuda-telefonos" class="btn btn-secondary"
+         data-tooltip-what="Enlace directo a los teléfonos y direcciones de ayuda municipal."
+         data-tooltip-action="Al hacer clic, la pantalla bajará hasta la lista completa de números telefónicos y horarios de atención presencial.">
+        <span class="btn-icon" aria-hidden="true">❓</span>
+        <span>¿Cómo usar esta página?</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     3. MENÚ DE NAVEGACIÓN PRINCIPAL SIMPLIFICADO
+     ============================================================ -->
+<nav class="main-navigation" aria-label="Menú principal de navegación">
+  <div class="nav-container">
+    <ul class="nav-list">
+      <li>
+        <a href="index.html" class="nav-link active" aria-current="page"
+           data-tooltip-what="Página principal o portada del portal."
+           data-tooltip-action="Al hacer clic irá a la página inicial donde se muestran todos los trámites disponibles.">
+          <span class="nav-icon" aria-hidden="true">🏠</span>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a href="html/solicitud.html" class="nav-link"
+           data-tooltip-what="Página para realizar una petición, solicitud o reclamo a la municipalidad."
+           data-tooltip-action="Al hacer clic se abrirá un formulario fácil donde podrá ingresar su solicitud paso a paso.">
+          <span class="nav-icon" aria-hidden="true">📝</span>
+          <span>Ingresar Nueva Solicitud</span>
+        </a>
+      </li>
+      <li>
+        <a href="html/consulta.html" class="nav-link"
+           data-tooltip-what="Página para revisar cómo va un trámite que usted ya ingresó anteriormente."
+           data-tooltip-action="Al hacer clic podrá ingresar su número de trámite para saber qué departamento lo está revisando y qué respuesta le han dado.">
+          <span class="nav-icon" aria-hidden="true">🔍</span>
+          <span>Consultar Estado de Trámite</span>
+        </a>
+      </li>
+      <li>
+        <a href="#ayuda-telefonos" class="nav-link"
+           data-tooltip-what="Sección de contacto, teléfonos y preguntas frecuentes."
+           data-tooltip-action="Al hacer clic verá los números de teléfono directo y la dirección para visitarnos en persona si lo prefiere.">
+          <span class="nav-icon" aria-hidden="true">📞</span>
+          <span>Teléfonos y Ayuda</span>
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-content">
-    <h1 class="hero-title">
-      Obtén tu Certificado de<br>
-      <span style="color: var(--accent-cyan);">Residencia en Línea</span>
-    </h1>
-    <p class="hero-desc">
-      Evita filas y traslados. Ingresa tu solicitud de manera directa, haz el seguimiento con tu código y recibe tu documento oficial emitido por la Municipalidad.
-    </p>
-    <div style="display: flex; gap: var(--sp-md); justify-content: center; margin-top: var(--sp-xl);">
-      <a href="solicitud.html" class="btn btn-primary btn-lg">Iniciar Solicitud</a>
-      <a href="consulta.html" class="btn btn-secondary btn-lg">Consultar Estado</a>
-    </div>
-  </div>
-</section>
+<!-- ============================================================
+     4. CONTENIDO PRINCIPAL
+     ============================================================ -->
+<main id="contenido-principal" role="main">
 
-<!-- ===== CÓMO FUNCIONA ===== -->
-<section class="section" style="background:var(--bg-secondary);">
-  <div class="section-header">
-    <h2 class="section-title">¿Cómo funciona el proceso?</h2>
-    <p style="color: var(--text-secondary);">Tres simples pasos para obtener tu certificado.</p>
+  <!-- SECCIÓN HERO / BIENVENIDA ACCESIBLE -->
+  <section class="hero-section" aria-labelledby="hero-main-title">
+    <div class="hero-layout">
+
+      <div class="hero-badge-senior">
+        <span aria-hidden="true">👵👴</span>
+        <span>Plataforma amigable y accesible para Personas Mayores</span>
+      </div>
+
+      <!-- TÍTULO PRINCIPAL: Sólido, oscuro, SIN degradados difusos -->
+      <h1 id="hero-main-title" class="hero-title">
+        Trámites municipales fáciles y directos para usted
+        <span class="hero-title-highlight">sin filas y sin salir de casa</span>
+      </h1>
+
+      <p class="hero-description">
+        Bienvenido al portal de la Municipalidad de Padre Las Casas. Desde aquí puede pedir arreglos en su calle,
+        solicitar ayuda social o consultar el estado de sus trámites con letras grandes, claras y explicaciones en
+        cada paso.
+      </p>
+
+      <!-- BOTONES DE ACCIÓN GRANDES -->
+      <div class="hero-buttons">
+
+        <a href="html/solicitud.html" class="btn btn-primary btn-hero"
+           data-tooltip-what="Botón principal para crear una nueva solicitud o reclamo municipal."
+           data-tooltip-action="Al hacer clic, se abrirá un formulario claro donde podrá escribir lo que necesita pedir a la municipalidad.">
+          <span class="btn-icon" aria-hidden="true">📝</span>
+          <span>Ingresar Solicitud</span>
+        </a>
+
+        <a href="html/consulta.html" class="btn btn-secondary btn-hero"
+           data-tooltip-what="Botón para revisar el estado o avance de una solicitud que ya envió."
+           data-tooltip-action="Al hacer clic, podrá ingresar su código de seguimiento para saber qué respuesta le ha dado el equipo municipal.">
+          <span class="btn-icon" aria-hidden="true">🔍</span>
+          <span>Consultar Estado de Trámite</span>
+        </a>
+
+      </div>
+
+      <!-- CAJA DE AYUDA TELEFÓNICA DIRECTA (Para quienes prefieren llamar) -->
+      <div class="hero-phone-box" role="region" aria-label="Ayuda telefónica preferencial">
+        <div class="phone-box-icon" aria-hidden="true">📞</div>
+        <div>
+          <h2 class="phone-box-title">¿Prefiere hacer su trámite conversando por teléfono?</h2>
+          <p class="phone-box-desc">
+            Si le resulta más cómodo, nuestras asistentes le atenderán con paciencia y registrarán su solicitud por
+            usted:
+          </p>
+          <div>
+            <a href="tel:800200400" class="phone-number-big"
+               data-tooltip-what="Línea telefónica gratuita del programa Adulto Mayor de Padre Las Casas."
+               data-tooltip-action="Al hacer clic se iniciará una llamada telefónica gratuita a la municipalidad.">
+              Llamada gratuita: 800 200 400
+            </a>
+            <span style="display: block; font-size: 0.95rem; color: #78350F; margin-top: 4px;">
+                Horario: Lunes a Viernes de 08:30 a 14:00 horas.
+              </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓN SERVICIOS: ¿QUÉ PUEDE PEDIR AQUÍ?
+       ============================================================ -->
+  <section class="section" aria-labelledby="servicios-heading" style="background-color: var(--bg-page);">
+    <div class="section-container">
+
+      <header class="section-header-accessible">
+        <span class="section-tag-senior">Servicios Municipales Disponibles</span>
+        <h2 id="servicios-heading" class="section-heading">
+          ¿Qué necesidad o trámite desea realizar hoy?
+        </h2>
+        <p class="section-intro">
+          Seleccione el tipo de ayuda que necesita. Si no sabe con seguridad cuál elegir, no se preocupe: elija la que
+          más se parezca y nosotros la derivaremos al departamento correcto.
+        </p>
+      </header>
+
+      <div class="services-grid-senior">
+
+        <!-- SERVICIO 1: VIALIDAD Y CALLES -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-icon-circle" aria-hidden="true">🏗️</div>
+            <h3 class="service-title">Arreglo de Calles, Baches y Veredas</h3>
+          </div>
+          <p class="service-desc">
+            Avísenos si en su calle, pasaje o camino hay hoyos, veredas rotas o dificultades para caminar con bastón o
+            silla de ruedas.
+          </p>
+          <div class="service-examples">
+            <strong>Atención en:</strong> Sector Urbano y Caminos Rurales de Padre Las Casas.
+          </div>
+          <a href="html/solicitud.html?tipo=infraestructura" class="btn btn-primary"
+             data-tooltip-what="Botón para pedir arreglo de pavimentos, veredas o caminos."
+             data-tooltip-action="Al hacer clic irá directo al formulario con el tema de calles ya seleccionado para facilitarle el trámite.">
+            <span>Pedir Arreglo de Calle →</span>
+          </a>
+        </article>
+
+        <!-- SERVICIO 2: ASISTENCIA SOCIAL Y ADULTO MAYOR -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-icon-circle" aria-hidden="true"
+                 style="background-color: #DCFCE7; border-color: #86EFAC;">🤝</div>
+            <h3 class="service-title">Ayuda Social y Adulto Mayor</h3>
+          </div>
+          <p class="service-desc">
+            Solicitud de apoyo alimentario, pañales para adultos, subsidios de agua y gas, y orientación para
+            pensiones o subsidios municipales.
+          </p>
+          <div class="service-examples">
+            <strong>Prioridad especial:</strong> Vecinos mayores de 65 años y personas con movilidad reducida.
+          </div>
+          <a href="html/solicitud.html?tipo=social" class="btn btn-success"
+             data-tooltip-what="Botón para solicitar asistencia social o alimentos."
+             data-tooltip-action="Al hacer clic se abrirá el formulario para que una asistente social municipal le contacte.">
+            <span>Pedir Ayuda Social →</span>
+          </a>
+        </article>
+
+        <!-- SERVICIO 3: ALUMBRADO PÚBLICO -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-icon-circle" aria-hidden="true"
+                 style="background-color: #FEF3C7; border-color: #FCD34D;">💡</div>
+            <h3 class="service-title">Luminarias y Alumbrado Público</h3>
+          </div>
+          <p class="service-desc">
+            Reporte de focos de luz apagados, postes dañados o pasajes oscuros para que el camión de reparaciones
+            acuda a su sector.
+          </p>
+          <div class="service-examples">
+            <strong>Tiempo estimado:</strong> Reparaciones en 48 a 72 horas hábiles.
+          </div>
+          <a href="html/solicitud.html?tipo=alumbrado" class="btn btn-primary"
+             data-tooltip-what="Botón para reportar focos de luz de la calle apagados o en mal estado."
+             data-tooltip-action="Al hacer clic irá al formulario para escribir la calle exacta donde falta iluminación.">
+            <span>Reportar Foco Apagado →</span>
+          </a>
+        </article>
+
+        <!-- SERVICIO 4: ASEO, BASURA Y ESCOMBROS -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-icon-circle" aria-hidden="true"
+                 style="background-color: #E0F2FE; border-color: #7DD3FC;">🚛</div>
+            <h3 class="service-title">Aseo, Basura y Retiro de Ramas</h3>
+          </div>
+          <p class="service-desc">
+            Solicitud de retiro de ramas de árboles, cachureos de gran tamaño, limpieza de microbasurales y paso del
+            camión recolector.
+          </p>
+          <div class="service-examples">
+            <strong>Servicio:</strong> Retiro a domicilio previa coordinación.
+          </div>
+          <a href="html/solicitud.html?tipo=aseo" class="btn btn-primary"
+             data-tooltip-what="Botón para pedir retiro de basura voluminosa, ramas o limpieza."
+             data-tooltip-action="Al hacer clic podrá solicitar que el personal municipal retire desechos de su casa.">
+            <span>Pedir Retiro de Basura →</span>
+          </a>
+        </article>
+
+        <!-- SERVICIO 5: COMUNIDADES RURALES -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-icon-circle" aria-hidden="true"
+                 style="background-color: #F1F5F9; border-color: #CBD5E1;">🌿</div>
+            <h3 class="service-title">Atención Comunidades Rurales</h3>
+          </div>
+          <p class="service-desc">
+            Canal prioritario para sectores rurales y comunidades indígenas: reparto de agua potable en camión aljibe
+            y mantención de caminos de tierra.
+          </p>
+          <div class="service-examples">
+            <strong>Atención:</strong> Sectores rurales de Huichahue, San Ramón, Maquehue y alrededores.
+          </div>
+          <a href="html/solicitud.html?tipo=rural" class="btn btn-primary"
+             data-tooltip-what="Botón para trámites específicos del sector rural."
+             data-tooltip-action="Al hacer clic irá al formulario diseñado para comunidades rurales y agua potable.">
+            <span>Atención Rural →</span>
+          </a>
+        </article>
+
+        <!-- SERVICIO 6: CERTIFICADOS Y DOCUMENTOS -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-icon-circle" aria-hidden="true"
+                 style="background-color: #F3E8FF; border-color: #D8B4FE;">📋</div>
+            <h3 class="service-title">Certificados Municipales</h3>
+          </div>
+          <p class="service-desc">
+            Pida certificados de residencia, número domiciliario o permisos municipales sin tener que hacer filas en
+            el edificio consistorial.
+          </p>
+          <div class="service-examples">
+            <strong>Entrega:</strong> En su correo electrónico o para retiro impreso en mesón preferencial.
+          </div>
+          <a href="html/solicitud.html?tipo=certificados" class="btn btn-primary"
+             data-tooltip-what="Botón para solicitar certificados y papeles municipales."
+             data-tooltip-action="Al hacer clic podrá elegir qué certificado necesita que le preparemos.">
+            <span>Pedir Certificado →</span>
+          </a>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓN ¿CÓMO FUNCIONA? (PASO A PASO EXPLICADO)
+       ============================================================ -->
+  <section class="section" aria-labelledby="pasos-heading"
+           style="background-color: #FFFFFF; border-top: 2px solid var(--border-subtle); border-bottom: 2px solid var(--border-subtle);">
+    <div class="section-container">
+
+      <header class="section-header-accessible">
+        <span class="section-tag-senior">Proceso Sencillo</span>
+        <h2 id="pasos-heading" class="section-heading">
+          ¿Cómo funciona este portal en 3 pasos simples?
+        </h2>
+        <p class="section-intro">
+          Hemos diseñado este sistema para que cualquier persona pueda usarlo sin complicaciones técnicas ni palabras
+          difíciles.
+        </p>
+      </header>
+
+      <div class="steps-container-senior">
+
+        <div class="step-card-senior">
+          <div class="step-number-circle" aria-hidden="true">1</div>
+          <h3 class="step-card-title">Paso 1: Nos cuenta lo que necesita</h3>
+          <p class="step-card-desc">
+            Presione el botón "Ingresar Solicitud" y anote su nombre, su teléfono de contacto y qué problema desea
+            solucionar.
+          </p>
+        </div>
+
+        <div class="step-card-senior">
+          <div class="step-number-circle" aria-hidden="true">2</div>
+          <h3 class="step-card-title">Paso 2: Le entregamos su número de trámite</h3>
+          <p class="step-card-desc">
+            Al terminar, la pantalla le mostrará un número claro (por ejemplo: PLC-2024-0847). Puede anotarlo en un
+            papelito o guardarlo en su teléfono.
+          </p>
+        </div>
+
+        <div class="step-card-senior">
+          <div class="step-number-circle" aria-hidden="true">3</div>
+          <h3 class="step-card-title">Paso 3: Le respondemos o le llamamos</h3>
+          <p class="step-card-desc">
+            Un funcionario de la Municipalidad revisará su caso, enviará la cuadrilla técnica y le llamará por
+            teléfono para informarle la solución.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓN CONSULTA RÁPIDA DE TICKET / SEGUIMIENTO
+       ============================================================ -->
+  <section class="section" aria-labelledby="consulta-rapida-heading" style="background-color: var(--bg-page);">
+    <div class="section-container">
+
+      <div class="status-lookup-card">
+        <header style="text-align: center; margin-bottom: 24px;">
+          <span class="section-tag-senior">Seguimiento Inmediato</span>
+          <h2 id="consulta-rapida-heading"
+              style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">
+            ¿Ya ingresó una solicitud? Revise cómo va aquí
+          </h2>
+          <p style="font-size: 1.12rem; color: var(--text-muted);">
+            Escriba el número de trámite que le entregamos cuando hizo su solicitud.
+          </p>
+        </header>
+
+        <form action="html/consulta.html" method="GET" class="input-with-button">
+          <div>
+            <label for="numero-ticket-input" class="form-label-senior">
+              Escriba aquí su número de trámite:
+            </label>
+            <p id="ticket-help-text" class="form-help-text">
+              Ejemplo: <strong>PLC-2024-0847</strong> (las letras pueden ser mayúsculas o minúsculas).
+            </p>
+            <input type="text" id="numero-ticket-input" name="codigo" class="form-control-senior"
+                   placeholder="Escriba aquí, por ejemplo: PLC-2024-0847" value="PLC-2024-0847"
+                   aria-describedby="ticket-help-text"
+                   data-tooltip-what="Casillero de texto para escribir el número o código de su trámite."
+                   data-tooltip-action="Escriba con el teclado su código de ticket. Si no lo recuerda, puede llamarnos al 800 200 400.">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-hero" style="width: 100%; justify-content: center;"
+                  data-tooltip-what="Botón para buscar y consultar la respuesta de la municipalidad."
+                  data-tooltip-action="Al hacer clic se buscará su trámite y le mostrará en letras grandes si ya fue resuelto o si está en revisión.">
+            <span class="btn-icon" aria-hidden="true">🔍</span>
+            <span>Consultar Estado de mi Trámite</span>
+          </button>
+        </form>
+
+        <div
+                style="background-color: #F8FAFC; border: 2px dashed #94A3B8; border-radius: var(--radius-md); padding: 16px; margin-top: 24px; text-align: center;">
+          <p style="font-size: 1.05rem; color: var(--text-body); margin-bottom: 6px;">
+            <strong>¿Perdió o no recuerda su número de trámite?</strong>
+          </p>
+          <p style="font-size: 1rem; color: var(--text-muted);">
+            No se preocupe. Llámenos gratis al <a href="tel:800200400"
+                                                  style="font-weight: 800; color: var(--color-primary); text-decoration: underline;">800 200 400</a> con
+            su número de RUT y una funcionaria le dirá de inmediato el estado de su caso.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECCIÓN TELÉFONOS Y DIRECCIONES DE AYUDA (ACCESIBLE)
+       ============================================================ -->
+  <section id="ayuda-telefonos" class="section" aria-labelledby="telefonos-heading"
+           style="background-color: #FFFFFF; border-top: 2px solid var(--border-subtle);">
+    <div class="section-container">
+
+      <header class="section-header-accessible">
+        <span class="section-tag-senior">Atención Presencial y Telefónica</span>
+        <h2 id="telefonos-heading" class="section-heading">
+          Teléfonos directos y dirección para visitarnos
+        </h2>
+        <p class="section-intro">
+          Si prefiere conversar cara a cara con nosotros, le esperamos en nuestras oficinas adaptadas con rampas y
+          mesón de atención preferencial para adultos mayores.
+        </p>
+      </header>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+        <div
+                style="background-color: #F8FAFC; border: 2.5px solid #CBD5E1; border-radius: var(--radius-lg); padding: 24px;">
+          <h3
+                  style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span aria-hidden="true">🏢</span> Edificio Consistorial Municipal
+          </h3>
+          <p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-body); margin-bottom: 12px;">
+            <strong>Dirección:</strong> Avenida Maquehue Nº 1441, Padre Las Casas, Región de La Araucanía.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-body); margin-bottom: 12px;">
+            <strong>Horario de atención:</strong> Lunes a Viernes de 08:30 a 14:00 horas (Jornada continuada).
+          </p>
+          <p style="font-size: 1.05rem; color: var(--color-secondary); font-weight: 700;">
+            ✓ Cuenta con estacionamiento para personas con discapacidad y rampa de acceso.
+          </p>
+        </div>
+
+        <div
+                style="background-color: #F8FAFC; border: 2.5px solid #CBD5E1; border-radius: var(--radius-lg); padding: 24px;">
+          <h3
+                  style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span aria-hidden="true">📞</span> Teléfonos de Contacto Rápido
+          </h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem;">
+            <li>
+              <strong>Fono Adulto Mayor Gratuito:</strong><br>
+              <a href="tel:800200400"
+                 style="color: var(--color-primary); font-weight: 800; font-size: 1.2rem; text-decoration: underline;">
+                800 200 400
+              </a>
+            </li>
+            <li>
+              <strong>Mesa Central Municipal:</strong><br>
+              <a href="tel:+56452590000"
+                 style="color: var(--color-primary); font-weight: 800; font-size: 1.15rem; text-decoration: underline;">
+                45 2 590 000
+              </a>
+            </li>
+            <li>
+              <strong>Seguridad Ciudadana y Emergencias (24 horas):</strong><br>
+              <a href="tel:1412"
+                 style="color: var(--color-danger); font-weight: 800; font-size: 1.2rem; text-decoration: underline;">
+                1412 (Marcar directo)
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     5. PIE DE PÁGINA ACCESIBLE
+     ============================================================ -->
+<footer class="site-footer-senior" role="contentinfo">
+  <div class="footer-inner-senior">
+
+    <div>
+      <h3 class="footer-col-title">Municipalidad de Padre Las Casas</h3>
+      <p class="footer-text">
+        Portal digital accesible y amigable, desarrollado pensando en la comodidad, autonomía y bienestar de nuestras
+        personas mayores y toda la comunidad.
+      </p>
+      <p class="footer-text">
+        <strong>Padre Las Casas</strong>, Región de La Araucanía, Chile.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="footer-col-title">Accesos Rápidos</h3>
+      <ul class="footer-links-list">
+        <li class="footer-link-item"><a href="index.html">Página de Inicio</a></li>
+        <li class="footer-link-item"><a href="html/solicitud.html">Ingresar una Solicitud</a></li>
+        <li class="footer-link-item"><a href="html/consulta.html">Consultar Estado de Trámite</a></li>
+        <li class="footer-link-item"><a href="#ayuda-telefonos">Teléfonos de Emergencia y Ayuda</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="footer-col-title">Opciones de Accesibilidad</h3>
+      <ul class="footer-links-list">
+        <li class="footer-link-item">
+          <button type="button" onclick="window.increaseFontSize()"
+                  style="background: none; border: none; color: #FFE600; text-decoration: underline; font-size: 1.05rem; cursor: pointer;">
+            Agrandar tamaño de letra
+          </button>
+        </li>
+        <li class="footer-link-item">
+          <button type="button" onclick="window.toggleHighContrast()"
+                  style="background: none; border: none; color: #FFE600; text-decoration: underline; font-size: 1.05rem; cursor: pointer;">
+            Activar Alto Contraste Suave
+          </button>
+        </li>
+        <li class="footer-link-item">
+          <button type="button" onclick="window.toggleVoice()"
+                  style="background: none; border: none; color: #FFE600; text-decoration: underline; font-size: 1.05rem; cursor: pointer;">
+            Activar Asistente de Voz / Lectura
+          </button>
+        </li>
+        <li class="footer-link-item">
+          <a href="html/login.html" style="color: #94A3B8; font-size: 0.95rem;">Acceso a Plataforma Interna
+            (Funcionarios)</a>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
-  <div style="display:flex; justify-content:center; gap:var(--sp-xl); flex-wrap:wrap; max-width:900px; margin:0 auto; text-align:center;">
-    <div style="flex:1; min-width:250px;">
-      <div style="font-size:32px; font-weight:800; color:var(--accent-cyan); margin-bottom:8px;">1</div>
-      <div style="font-weight:700; margin-bottom:4px;">Ingresa tus datos</div>
-      <div style="font-size:14px; color:var(--text-secondary);">Completa el formulario con tu información personal y dirección.</div>
-    </div>
-    <div style="flex:1; min-width:250px;">
-      <div style="font-size:32px; font-weight:800; color:var(--accent-cyan); margin-bottom:8px;">2</div>
-      <div style="font-weight:700; margin-bottom:4px;">Recibe tu Código</div>
-      <div style="font-size:14px; color:var(--text-secondary);">Guarda el número de ticket generado para consultar el avance.</div>
-    </div>
-    <div style="flex:1; min-width:250px;">
-      <div style="font-size:32px; font-weight:800; color:var(--accent-cyan); margin-bottom:8px;">3</div>
-      <div style="font-weight:700; margin-bottom:4px;">Descarga tu Certificado</div>
-      <div style="font-size:14px; color:var(--text-secondary);">El equipo municipal validará los datos y emitirá el documento.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer style="background:var(--bg-card); padding:var(--sp-2xl) var(--sp-xl); text-align:center;">
-  <div style="color:var(--text-muted); font-size:14px;">
-    © 2024 Municipalidad de Padre Las Casas — Portal de Trámites
+  <div class="footer-bottom-bar">
+      <span>© 2024 Ilustre Municipalidad de Padre Las Casas — Sitio Web Accesible diseñado bajo Norma WCAG 2.1 Nivel
+        AAA.</span>
+    <span>Región de La Araucanía</span>
   </div>
 </footer>
 
+<!-- Script del sistema integral de accesibilidad y tooltips explicativos -->
+<script src="js/accessibility.js"></script>
+
 </body>
+
 </html>

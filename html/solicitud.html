@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es" data-font-size="normal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar Nueva Solicitud — Municipalidad de Padre Las Casas</title>
+  <meta name="description" content="Formulario accesible para ingresar requerimientos y solicitudes a la Municipalidad de Padre Las Casas.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Enlace de salto accesible -->
+  <a href="#contenido-principal" class="skip-link">Saltar directamente al formulario</a>
+
+  <!-- ============================================================
+       1. BARRA SUPERIOR DE ACCESIBILIDAD
+       ============================================================ -->
+  <aside class="accessibility-topbar" aria-label="Herramientas de accesibilidad y ayuda">
+    <div class="topbar-container">
+      <div class="topbar-phone">
+        <span aria-hidden="true">📞</span>
+        <span>¿Dificultad para completar el formulario?</span>
+        <a href="tel:800200400" 
+           class="phone-link"
+           data-tooltip-what="Teléfono gratuito de ayuda para personas mayores."
+           data-tooltip-action="Al hacer clic llamará a un funcionario que llenará la solicitud por usted vía telefónica.">
+          Llámenos gratis al 800 200 400
+        </a>
+      </div>
+
+      <div class="topbar-controls">
+
+        <!-- Selector de tema (Claro / Oscuro / Alto Contraste Suave) -->
+        <div class="theme-selector-group" role="group" aria-label="Cambiar tema visual de la página">
+          <span class="theme-group-label">Modo:</span>
+          
+          <button type="button" 
+                  class="btn-toolbar active" 
+                  id="btn-theme-light"
+                  aria-pressed="true"
+                  data-tooltip-what="Modo Claro: fondo blanco y limpio, ideal para leer de día."
+                  data-tooltip-action="Al hacer clic, la página se mostrará con fondo claro y letras oscuras.">
+            <span aria-hidden="true">☀️</span>
+            <span class="toolbar-btn-text">Claro</span>
+          </button>
+
+          <button type="button" 
+                  class="btn-toolbar" 
+                  id="btn-theme-dark"
+                  aria-pressed="false"
+                  data-tooltip-what="Modo Oscuro: fondo azul noche municipal de la anterior versión con tonos cian."
+                  data-tooltip-action="Al hacer clic, la página cambiará al fondo azul noche con los colores de la municipalidad.">
+            <span aria-hidden="true">🌙</span>
+            <span class="toolbar-btn-text">Oscuro</span>
+          </button>
+
+          <button type="button" 
+                  class="btn-toolbar" 
+                  id="btn-theme-contrast"
+                  aria-pressed="false"
+                  data-tooltip-what="Modo Alto Contraste Suave: letras blancas y crema sobre fondo oscuro, sin colores chillones ni amarillos eléctricos."
+                  data-tooltip-action="Al hacer clic, activa la máxima legibilidad con tonos cálidos y descansados para la vista.">
+            <span aria-hidden="true">👁️</span>
+            <span class="toolbar-btn-text">Contraste</span>
+          </button>
+        </div>
+
+        <div class="font-size-group" role="group" aria-label="Cambiar tamaño de letra">
+          <span class="font-group-label">Letra:</span>
+          <button type="button" class="btn-toolbar" id="btn-font-decrease" aria-label="Reducir letra"
+                  data-tooltip-what="Botón A menos para achicar la letra del texto."
+                  data-tooltip-action="Al hacer clic reducirá el tamaño del texto.">
+            <span aria-hidden="true" style="font-size: 15px; font-weight: 800;">A-</span>
+          </button>
+          <button type="button" class="btn-toolbar" id="btn-font-reset" aria-label="Letra normal"
+                  data-tooltip-what="Botón para volver al tamaño de letra normal."
+                  data-tooltip-action="Al hacer clic restablece el texto a tamaño estándar.">
+            <span aria-hidden="true" style="font-size: 18px; font-weight: 800;">A</span>
+          </button>
+          <button type="button" class="btn-toolbar" id="btn-font-increase" aria-label="Aumentar letra"
+                  data-tooltip-what="Botón A más para agrandar la letra."
+                  data-tooltip-action="Al hacer clic aumentará el tamaño de las letras.">
+            <span aria-hidden="true" style="font-size: 22px; font-weight: 800;">A+</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-toolbar active" id="btn-toggle-guided" aria-pressed="true"
+                data-tooltip-what="Interruptor del Asistente Guiado paso a paso."
+                data-tooltip-action="Al hacer clic activa o desactiva las explicaciones de ayuda en cada campo.">
+          <span aria-hidden="true">💡</span>
+          <span class="toolbar-btn-text">Modo Guiado: ACTIVO</span>
+        </button>
+
+        <button type="button" class="btn-toolbar" id="btn-toggle-voice" aria-pressed="false"
+                data-tooltip-what="Interruptor de voz y audio."
+                data-tooltip-action="Al hacer clic una voz le leerá las instrucciones de cada campo que seleccione.">
+          <span aria-hidden="true">🔊</span>
+          <span class="toolbar-btn-text">Voz: DESACTIVADA</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Banner de lectura de voz activa -->
+  <div id="speaking-banner" class="speaking-indicator-banner" style="display: none;" role="status">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span aria-hidden="true">🔊</span>
+      <span>El asistente de voz está leyendo...</span>
+    </div>
+    <button type="button" id="btn-stop-speech" class="btn-stop-audio">
+      ⏹️ Detener lectura de voz
+    </button>
+  </div>
+
+  <!-- ============================================================
+       2. ENCABEZADO
+       ============================================================ -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-brand"
+         data-tooltip-what="Logotipo de la Municipalidad de Padre Las Casas."
+         data-tooltip-action="Al hacer clic volverá a la portada de inicio.">
+        <div class="brand-crest" aria-hidden="true">🏛️</div>
+        <div class="brand-text-block">
+          <span class="brand-entity">Municipalidad de Padre Las Casas</span>
+          <span class="brand-subline">Portal de Atención y Trámites Ciudadanos</span>
+        </div>
+      </a>
+
+      <div>
+        <a href="../index.html" class="btn btn-secondary"
+           data-tooltip-what="Botón para volver a la página de inicio."
+           data-tooltip-action="Al hacer clic regresará a la página principal sin guardar cambios.">
+          ← Volver al Inicio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       3. NAVEGACIÓN SIMPLIFICADA
+       ============================================================ -->
+  <nav class="main-navigation" aria-label="Menú principal">
+    <div class="nav-container">
+      <ul class="nav-list">
+        <li>
+          <a href="../index.html" class="nav-link"
+             data-tooltip-what="Enlace al inicio del portal."
+             data-tooltip-action="Al hacer clic irá a la página principal.">
+            <span class="nav-icon" aria-hidden="true">🏠</span>
+            <span>Inicio</span>
+          </a>
+        </li>
+        <li>
+          <a href="solicitud.html" class="nav-link active" aria-current="page"
+             data-tooltip-what="Página actual del formulario de nueva solicitud."
+             data-tooltip-action="Usted ya se encuentra en esta página para ingresar su requerimiento.">
+            <span class="nav-icon" aria-hidden="true">📝</span>
+            <span>Ingresar Nueva Solicitud</span>
+          </a>
+        </li>
+        <li>
+          <a href="consulta.html" class="nav-link"
+             data-tooltip-what="Enlace para ver el estado de un trámite existente."
+             data-tooltip-action="Al hacer clic irá a la pantalla para revisar cómo va su solicitud.">
+            <span class="nav-icon" aria-hidden="true">🔍</span>
+            <span>Consultar Estado</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       4. CONTENIDO PRINCIPAL: FORMULARIO ACCESIBLE
+       ============================================================ -->
+  <main id="contenido-principal" class="section" style="max-width: 900px; margin: 0 auto;">
+    
+    <header class="section-header-accessible">
+      <span class="section-tag-senior">Formulario Paso a Paso</span>
+      <h1 class="section-heading" style="font-size: clamp(2rem, 3.5vw, 2.6rem); color: var(--color-primary);">
+        Ingresar una Nueva Solicitud Municipal
+      </h1>
+      <p class="section-intro">
+        Por favor complete los siguientes datos en 4 pasos sencillos. Si tiene cualquier duda, active el <strong>Modo Guiado</strong> o presione el botón de voz para escuchar la ayuda.
+      </p>
+    </header>
+
+    <form action="consulta.html" method="GET" onsubmit="alert('¡Solicitud ingresada con éxito! Su número de trámite asignado es: PLC-2024-0847. A continuación podrá ver su estado.');">
+
+      <!-- PASO 1: TIPO DE PROBLEMA -->
+      <fieldset class="form-section-card">
+        <legend class="form-section-title">
+          <span aria-hidden="true">1️⃣</span>
+          <span>Paso 1: ¿Qué tipo de problema o ayuda necesita? (Marque una opción)</span>
+        </legend>
+
+        <div class="radio-choice-grid">
+          
+          <div>
+            <input type="radio" name="tipo_problema" id="opt-calles" value="calles" class="radio-card-input sr-only" checked>
+            <label for="opt-calles" class="radio-card-label" tabindex="0"
+                   data-tooltip-what="Opción 1: Arreglo de calles, caminos y veredas."
+                   data-tooltip-action="Seleccione esta opción si su reclamo tiene que ver con baches, pavimentos rotos o caminos de tierra.">
+              <span class="radio-card-icon" aria-hidden="true">🏗️</span>
+              <span class="radio-card-title">Calles y Veredas</span>
+              <span class="radio-card-desc">Baches, caminos rurales y veredas rotas</span>
+            </label>
+          </div>
+
+          <div>
+            <input type="radio" name="tipo_problema" id="opt-social" value="social" class="radio-card-input sr-only">
+            <label for="opt-social" class="radio-card-label" tabindex="0"
+                   data-tooltip-what="Opción 2: Ayuda social para familias y adultos mayores."
+                   data-tooltip-action="Seleccione esta opción si necesita alimentos, pañales para adulto, subsidios o asistencia social.">
+              <span class="radio-card-icon" aria-hidden="true">🤝</span>
+              <span class="radio-card-title">Ayuda Social</span>
+              <span class="radio-card-desc">Alimentos, subsidios y adulto mayor</span>
+            </label>
+          </div>
+
+          <div>
+            <input type="radio" name="tipo_problema" id="opt-alumbrado" value="alumbrado" class="radio-card-input sr-only">
+            <label for="opt-alumbrado" class="radio-card-label" tabindex="0"
+                   data-tooltip-what="Opción 3: Focos de alumbrado público apagados."
+                   data-tooltip-action="Seleccione esta opción si falta iluminación en su calle o pasaje.">
+              <span class="radio-card-icon" aria-hidden="true">💡</span>
+              <span class="radio-card-title">Alumbrado Público</span>
+              <span class="radio-card-desc">Luminarias apagadas o postes dañados</span>
+            </label>
+          </div>
+
+          <div>
+            <input type="radio" name="tipo_problema" id="opt-aseo" value="aseo" class="radio-card-input sr-only">
+            <label for="opt-aseo" class="radio-card-label" tabindex="0"
+                   data-tooltip-what="Opción 4: Aseo, basura y retiro de ramas."
+                   data-tooltip-action="Seleccione esta opción si necesita que retiren ramas, escombros o limpien microbasurales.">
+              <span class="radio-card-icon" aria-hidden="true">🚛</span>
+              <span class="radio-card-title">Basura y Aseo</span>
+              <span class="radio-card-desc">Retiro de ramas, cachureos y aseo</span>
+            </label>
+          </div>
+
+        </div>
+      </fieldset>
+
+      <!-- PASO 2: DATOS DEL VECINO -->
+      <fieldset class="form-section-card">
+        <legend class="form-section-title">
+          <span aria-hidden="true">2️⃣</span>
+          <span>Paso 2: Sus datos de contacto (Para poder responderle)</span>
+        </legend>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          
+          <div>
+            <label for="input-nombre" class="form-label-senior">
+              Nombre y Apellidos completos <span style="color: var(--color-danger);" aria-hidden="true">*</span>
+            </label>
+            <input type="text" 
+                   id="input-nombre" 
+                   name="nombre" 
+                   class="form-control-senior" 
+                   placeholder="Ej: Juan Pérez González"
+                   required
+                   data-tooltip-what="Campo de texto para ingresar su nombre y apellido."
+                   data-tooltip-action="Escriba aquí su nombre como aparece en su cédula de identidad para identificar su solicitud.">
+          </div>
+
+          <div>
+            <label for="input-telefono" class="form-label-senior">
+              Teléfono o Celular de contacto <span style="color: var(--color-danger);" aria-hidden="true">*</span>
+            </label>
+            <input type="tel" 
+                   id="input-telefono" 
+                   name="telefono" 
+                   class="form-control-senior" 
+                   placeholder="Ej: 9 1234 5678"
+                   required
+                   data-tooltip-what="Campo de texto para anotar su número telefónico."
+                   data-tooltip-action="Escriba aquí el número donde un funcionario municipal pueda llamarle para darle la respuesta.">
+          </div>
+
+          <div>
+            <label for="input-rut" class="form-label-senior">
+              Cédula de Identidad (RUT)
+            </label>
+            <input type="text" 
+                   id="input-rut" 
+                   name="rut" 
+                   class="form-control-senior" 
+                   placeholder="Ej: 12.345.678-9"
+                   data-tooltip-what="Campo para anotar su número de RUT chileno."
+                   data-tooltip-action="Escriba su RUT con guión y dígito verificador. Nos ayuda a buscar su ficha vecinal.">
+          </div>
+
+          <div>
+            <label for="input-correo" class="form-label-senior">
+              Correo Electrónico (Opcional)
+            </label>
+            <input type="email" 
+                   id="input-correo" 
+                   name="correo" 
+                   class="form-control-senior" 
+                   placeholder="Ej: mi.correo@ejemplo.com"
+                   data-tooltip-what="Campo para escribir su correo electrónico si tiene uno."
+                   data-tooltip-action="Si tiene correo electrónico, anótelo aquí para enviarle una copia digital de su comprobante.">
+          </div>
+
+        </div>
+      </fieldset>
+
+      <!-- PASO 3: DÓNDE OCURRE EL PROBLEMA -->
+      <fieldset class="form-section-card">
+        <legend class="form-section-title">
+          <span aria-hidden="true">3️⃣</span>
+          <span>Paso 3: ¿En qué sector o calle ocurre el problema?</span>
+        </legend>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px;">
+          
+          <div>
+            <label for="select-sector" class="form-label-senior">
+              Sector de la Comuna <span style="color: var(--color-danger);" aria-hidden="true">*</span>
+            </label>
+            <select id="select-sector" name="sector" class="form-control-senior" required
+                    data-tooltip-what="Lista desplegable para seleccionar si vive en zona urbana o campo."
+                    data-tooltip-action="Haga clic para elegir entre Padre Las Casas urbano o comunidades y sectores rurales.">
+              <option value="" disabled selected>Haga clic para elegir...</option>
+              <option value="urbano">Sector Urbano (Calles de Padre Las Casas)</option>
+              <option value="rural">Sector Rural / Comunidades Indígenas</option>
+              <option value="san_ramon">Localidad de San Ramón</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="input-direccion" class="form-label-senior">
+              Calle, Número o Referencia <span style="color: var(--color-danger);" aria-hidden="true">*</span>
+            </label>
+            <input type="text" 
+                   id="input-direccion" 
+                   name="direccion" 
+                   class="form-control-senior" 
+                   placeholder="Ej: Calle Maquehue 1230, frente a la plaza"
+                   required
+                   data-tooltip-what="Campo de texto para anotar la dirección exacta."
+                   data-tooltip-action="Escriba la calle y número o referencias fáciles (cerca de un negocio, iglesia, escuela o kilómetro).">
+          </div>
+
+        </div>
+
+        <div>
+          <label for="textarea-descripcion" class="form-label-senior">
+            Explíquenos con sus propias palabras qué sucede: <span style="color: var(--color-danger);" aria-hidden="true">*</span>
+          </label>
+          <textarea id="textarea-descripcion" 
+                    name="descripcion" 
+                    class="form-control-senior" 
+                    rows="4" 
+                    placeholder="Por favor cuéntenos aquí lo que pasa. Por ejemplo: 'Hay un hoyo grande en la vereda donde pasan adultos mayores', o 'El foco frente a mi casa lleva 3 días apagado'..."
+                    required
+                    data-tooltip-what="Área de texto grande para escribir con tranquilidad lo que necesita."
+                    data-tooltip-action="Escriba con calma el detalle del problema para que la cuadrilla municipal sepa exactamente qué herramientas llevar."></textarea>
+        </div>
+
+      </fieldset>
+
+      <!-- BOTONES FINALES DE ENVÍO -->
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; margin-top: 30px;">
+        
+        <a href="../index.html" class="btn btn-secondary btn-hero"
+           data-tooltip-what="Botón para cancelar y volver atrás."
+           data-tooltip-action="Al hacer clic cancelará la solicitud y volverá a la página principal.">
+          ← Cancelar y Volver
+        </a>
+
+        <button type="submit" class="btn btn-primary btn-hero" style="min-width: 300px;"
+                data-tooltip-what="Botón principal para enviar formalmente su requerimiento al municipio."
+                data-tooltip-action="Al hacer clic guardará su solicitud y le mostrará su número de comprobante oficial.">
+          <span class="btn-icon" aria-hidden="true">📨</span>
+          <span>Enviar mi Solicitud</span>
+        </button>
+
+      </div>
+
+    </form>
+
+  </main>
+
+  <!-- ============================================================
+       5. PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="site-footer-senior" role="contentinfo">
+    <div class="footer-inner-senior">
+      <div>
+        <h3 class="footer-col-title">Municipalidad de Padre Las Casas</h3>
+        <p class="footer-text">Avenida Maquehue Nº 1441, Padre Las Casas.</p>
+        <p class="footer-text">Teléfono Gratuito Adulto Mayor: <strong>800 200 400</strong></p>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Enlaces Útiles</h3>
+        <ul class="footer-links-list">
+          <li class="footer-link-item"><a href="../index.html">Volver a Inicio</a></li>
+          <li class="footer-link-item"><a href="consulta.html">Consultar Estado de Trámite</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <span>© 2024 Ilustre Municipalidad de Padre Las Casas — Plataforma Accesible WCAG 2.1 AAA.</span>
+    </div>
+  </footer>
+
+  <script src="../js/accessibility.js"></script>
+
+  <script>
+    // Permitir seleccionar los radio buttons con la tecla Espacio / Enter en el label
+    document.querySelectorAll('.radio-card-label').forEach(label => {
+      label.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          const forId = label.getAttribute('for');
+          const radio = document.getElementById(forId);
+          if (radio) {
+            radio.checked = true;
+            radio.dispatchEvent(new Event('change'));
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

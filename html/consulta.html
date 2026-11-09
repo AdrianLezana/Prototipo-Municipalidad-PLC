@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es" data-font-size="normal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Estado de Trámite — Municipalidad de Padre Las Casas</title>
+  <meta name="description" content="Seguimiento accesible de trámites y solicitudes para vecinos y personas mayores de Padre Las Casas.">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Estilos específicos accesibles para la línea de tiempo */
+    .timeline-senior {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .timeline-item-senior {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: #FFFFFF;
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .timeline-item-senior.active-step {
+      border: 3px solid var(--color-primary);
+      background-color: #F8FAFC;
+    }
+    .timeline-badge-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      border: 2px solid;
+    }
+    .timeline-badge-done {
+      background-color: #D1FAE5;
+      color: #065F46;
+      border-color: #065F46;
+    }
+    .timeline-badge-active {
+      background-color: #EBF3FC;
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .timeline-badge-pending {
+      background-color: #F1F5F9;
+      color: #475569;
+      border-color: #94A3B8;
+    }
+    .official-message-box {
+      background-color: #EFF6FF;
+      border-left: 6px solid var(--color-primary);
+      border-top: 1.5px solid #BFDBFE;
+      border-right: 1.5px solid #BFDBFE;
+      border-bottom: 1.5px solid #BFDBFE;
+      padding: 18px 20px;
+      border-radius: var(--radius-sm);
+      margin-top: 14px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Enlace accesible de salto -->
+  <a href="#contenido-principal" class="skip-link">Saltar al resultado de la consulta</a>
+
+  <!-- ============================================================
+       1. BARRA SUPERIOR DE ACCESIBILIDAD
+       ============================================================ -->
+  <aside class="accessibility-topbar" aria-label="Herramientas de accesibilidad y ayuda">
+    <div class="topbar-container">
+      <div class="topbar-phone">
+        <span aria-hidden="true">📞</span>
+        <span>¿Dudas sobre su trámite?</span>
+        <a href="tel:800200400" 
+           class="phone-link"
+           data-tooltip-what="Fono directo gratuito municipal."
+           data-tooltip-action="Al hacer clic llamará gratis a una asistente que le informará el estado de su trámite en el acto.">
+          Llámenos al 800 200 400
+        </a>
+      </div>
+
+      <div class="topbar-controls">
+
+        <!-- Selector de tema (Claro / Oscuro / Alto Contraste Suave) -->
+        <div class="theme-selector-group" role="group" aria-label="Cambiar tema visual de la página">
+          <span class="theme-group-label">Modo:</span>
+          
+          <button type="button" 
+                  class="btn-toolbar active" 
+                  id="btn-theme-light"
+                  aria-pressed="true"
+                  data-tooltip-what="Modo Claro: fondo blanco y limpio, ideal para leer de día."
+                  data-tooltip-action="Al hacer clic, la página se mostrará con fondo claro y letras oscuras.">
+            <span aria-hidden="true">☀️</span>
+            <span class="toolbar-btn-text">Claro</span>
+          </button>
+
+          <button type="button" 
+                  class="btn-toolbar" 
+                  id="btn-theme-dark"
+                  aria-pressed="false"
+                  data-tooltip-what="Modo Oscuro: fondo azul noche municipal de la anterior versión con tonos cian."
+                  data-tooltip-action="Al hacer clic, la página cambiará al fondo azul noche con los colores de la municipalidad.">
+            <span aria-hidden="true">🌙</span>
+            <span class="toolbar-btn-text">Oscuro</span>
+          </button>
+
+          <button type="button" 
+                  class="btn-toolbar" 
+                  id="btn-theme-contrast"
+                  aria-pressed="false"
+                  data-tooltip-what="Modo Alto Contraste Suave: letras blancas y crema sobre fondo oscuro, sin colores chillones ni amarillos eléctricos."
+                  data-tooltip-action="Al hacer clic, activa la máxima legibilidad con tonos cálidos y descansados para la vista.">
+            <span aria-hidden="true">👁️</span>
+            <span class="toolbar-btn-text">Contraste</span>
+          </button>
+        </div>
+
+        <div class="font-size-group" role="group" aria-label="Cambiar tamaño de letra">
+          <span class="font-group-label">Letra:</span>
+          <button type="button" class="btn-toolbar" id="btn-font-decrease" aria-label="Reducir letra"
+                  data-tooltip-what="Botón A menos para achicar la letra del texto."
+                  data-tooltip-action="Al hacer clic reducirá el tamaño del texto.">
+            <span aria-hidden="true" style="font-size: 15px; font-weight: 800;">A-</span>
+          </button>
+          <button type="button" class="btn-toolbar" id="btn-font-reset" aria-label="Letra normal"
+                  data-tooltip-what="Botón para volver al tamaño de letra normal."
+                  data-tooltip-action="Al hacer clic restablece el texto a tamaño estándar.">
+            <span aria-hidden="true" style="font-size: 18px; font-weight: 800;">A</span>
+          </button>
+          <button type="button" class="btn-toolbar" id="btn-font-increase" aria-label="Aumentar letra"
+                  data-tooltip-what="Botón A más para agrandar la letra."
+                  data-tooltip-action="Al hacer clic aumentará el tamaño de las letras.">
+            <span aria-hidden="true" style="font-size: 22px; font-weight: 800;">A+</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-toolbar active" id="btn-toggle-guided" aria-pressed="true"
+                data-tooltip-what="Interruptor del Asistente Guiado."
+                data-tooltip-action="Al hacer clic activa o desactiva las ayudas explicativas en pantalla.">
+          <span aria-hidden="true">💡</span>
+          <span class="toolbar-btn-text">Modo Guiado: ACTIVO</span>
+        </button>
+
+        <button type="button" class="btn-toolbar" id="btn-toggle-voice" aria-pressed="false"
+                data-tooltip-what="Interruptor de voz y audio."
+                data-tooltip-action="Al hacer clic una voz le leerá las explicaciones y estados en voz alta.">
+          <span aria-hidden="true">🔊</span>
+          <span class="toolbar-btn-text">Voz: DESACTIVADA</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Banner de lectura de voz activa -->
+  <div id="speaking-banner" class="speaking-indicator-banner" style="display: none;" role="status">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span aria-hidden="true">🔊</span>
+      <span>El asistente de voz está leyendo...</span>
+    </div>
+    <button type="button" id="btn-stop-speech" class="btn-stop-audio">
+      ⏹️ Detener lectura de voz
+    </button>
+  </div>
+
+  <!-- ============================================================
+       2. ENCABEZADO
+       ============================================================ -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-brand"
+         data-tooltip-what="Logotipo oficial de la Municipalidad."
+         data-tooltip-action="Al hacer clic volverá a la página principal.">
+        <div class="brand-crest" aria-hidden="true">🏛️</div>
+        <div class="brand-text-block">
+          <span class="brand-entity">Municipalidad de Padre Las Casas</span>
+          <span class="brand-subline">Consulta y Seguimiento de Trámites</span>
+        </div>
+      </a>
+
+      <div>
+        <a href="../index.html" class="btn btn-secondary"
+           data-tooltip-what="Botón para regresar al inicio."
+           data-tooltip-action="Al hacer clic volverá a la portada.">
+          ← Volver al Inicio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       3. NAVEGACIÓN SIMPLIFICADA
+       ============================================================ -->
+  <nav class="main-navigation" aria-label="Menú principal">
+    <div class="nav-container">
+      <ul class="nav-list">
+        <li>
+          <a href="../index.html" class="nav-link"
+             data-tooltip-what="Enlace al inicio del portal."
+             data-tooltip-action="Al hacer clic irá a la página de bienvenida.">
+            <span class="nav-icon" aria-hidden="true">🏠</span>
+            <span>Inicio</span>
+          </a>
+        </li>
+        <li>
+          <a href="solicitud.html" class="nav-link"
+             data-tooltip-what="Enlace para ingresar una nueva solicitud."
+             data-tooltip-action="Al hacer clic abrirá el formulario para ingresar un nuevo requerimiento.">
+            <span class="nav-icon" aria-hidden="true">📝</span>
+            <span>Ingresar Nueva Solicitud</span>
+          </a>
+        </li>
+        <li>
+          <a href="consulta.html" class="nav-link active" aria-current="page"
+             data-tooltip-what="Página actual de consulta de estado."
+             data-tooltip-action="Usted ya se encuentra en esta página para consultar trámites.">
+            <span class="nav-icon" aria-hidden="true">🔍</span>
+            <span>Consultar Estado</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       4. CONTENIDO PRINCIPAL: CONSULTA DE TRÁMITE
+       ============================================================ -->
+  <main id="contenido-principal" class="section" style="max-width: 960px; margin: 0 auto;">
+    
+    <header class="section-header-accessible">
+      <span class="section-tag-senior">Seguimiento de su Caso</span>
+      <h1 class="section-heading" style="color: var(--color-primary);">
+        Consulta del Estado de su Trámite
+      </h1>
+      <p class="section-intro">
+        A continuación puede ver en qué etapa se encuentra su solicitud, qué funcionario la está atendiendo y las notas oficiales entregadas por el municipio.
+      </p>
+    </header>
+
+    <!-- CAJA DE BÚSQUEDA RÁPIDA -->
+    <div class="status-lookup-card" style="margin-bottom: 30px;">
+      <form action="consulta.html" method="GET" class="input-with-button">
+        <div>
+          <label for="buscar-ticket-input" class="form-label-senior">
+            Número de trámite a consultar:
+          </label>
+          <input type="text" 
+                 id="buscar-ticket-input" 
+                 name="codigo" 
+                 class="form-control-senior" 
+                 value="PLC-2024-0847"
+                 placeholder="Ej: PLC-2024-0847"
+                 data-tooltip-what="Casillero para ingresar otro código de seguimiento si desea buscarlo."
+                 data-tooltip-action="Escriba aquí el número de trámite y presione Buscar para ver su avance.">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-hero" style="justify-content: center;"
+                data-tooltip-what="Botón para buscar el trámite escrito en el casillero."
+                data-tooltip-action="Al hacer clic se actualizará la pantalla con la información de ese trámite.">
+          <span class="btn-icon" aria-hidden="true">🔍</span>
+          <span>Buscar este Número de Trámite</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- RESULTADO DE LA BÚSQUEDA (TARJETA ACCESIBLE) -->
+    <section aria-labelledby="resultado-titulo" class="form-section-card" style="border: 3px solid var(--color-primary); box-shadow: var(--shadow-card);">
+      
+      <!-- Aviso de éxito en la búsqueda -->
+      <div style="background-color: #D1FAE5; border: 2.5px solid #065F46; border-radius: var(--radius-md); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;" role="status">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-size: 2rem; color: #065F46;" aria-hidden="true">✓</span>
+          <div>
+            <strong style="font-size: 1.25rem; color: #065F46; display: block;">¡Trámite Encontrado Exitosamente!</strong>
+            <span style="font-size: 1.05rem; color: #044432;">Se muestra la información oficial registrada en la municipalidad.</span>
+          </div>
+        </div>
+
+        <!-- Botón para escuchar todo este resultado -->
+        <button type="button" 
+                class="btn btn-secondary" 
+                onclick="PLCAccessibility.speakText('Trámite número PLC-2024-0847. Asunto: Reparación de Camino Rural e Infraestructura Vial. Estado actual: En Revisión por la Dirección de Obras. Mensaje oficial: Su solicitud ha sido recepcionada y asignada al Inspector de Obras Carlos Riquelme, quien se encuentra evaluando en terreno la factibilidad técnica para reparar el camino.');"
+                data-tooltip-what="Botón de locución para escuchar este reporte con voz en audio."
+                data-tooltip-action="Al hacer clic, el asistente de voz le leerá todo el contenido de este trámite en voz alta.">
+          <span aria-hidden="true">🔊</span>
+          <span>Escuchar este resultado</span>
+        </button>
+      </div>
+
+      <!-- Encabezado del ticket -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 2px solid var(--border-subtle); padding-bottom: 20px;">
+        <div>
+          <span style="background-color: #0F2238; color: #FFE600; font-family: monospace; font-size: 1.3rem; font-weight: 800; padding: 6px 16px; border-radius: var(--radius-sm); display: inline-block; margin-bottom: 10px; border: 2px solid #000000;">
+            Número de Trámite: PLC-2024-0847
+          </span>
+          <h2 id="resultado-titulo" style="font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.3;">
+            Reparación de Camino Rural e Infraestructura Vial
+          </h2>
+          <p style="font-size: 1.15rem; color: var(--text-muted); margin-top: 6px;">
+            <strong>Solicitado por:</strong> Don Juan Pérez González • Sector Rural Huichahue
+          </p>
+        </div>
+
+        <div style="background-color: #FEF3C7; border: 3px solid #B45309; border-radius: var(--radius-full); padding: 10px 22px; font-weight: 800; font-size: 1.15rem; color: #78350F; display: inline-flex; align-items: center; gap: 8px;">
+          <span aria-hidden="true">🟡</span>
+          <span>Estado: En Revisión</span>
+        </div>
+      </div>
+
+      <!-- HISTORIAL DIDÁCTICO PASO A PASO -->
+      <div style="margin-top: 24px;">
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+          <span aria-hidden="true">📋</span> Pasos y Avances de su Solicitud
+        </h3>
+
+        <div class="timeline-senior">
+
+          <!-- PASO 1: COMPLETADO -->
+          <div class="timeline-item-senior">
+            <div class="timeline-badge-circle timeline-badge-done" aria-hidden="true">✓</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                <h4 style="font-size: 1.25rem; font-weight: 800; color: #065F46;">1. Solicitud Recibida en la Municipalidad</h4>
+                <span style="font-size: 1rem; color: #475569; font-weight: 600;">06 de Octubre 2024, 10:30 hrs</span>
+              </div>
+              <p style="font-size: 1.08rem; color: var(--text-body); margin-top: 6px;">
+                Su solicitud fue ingresada correctamente en el sistema municipal y derivada al área técnica correspondiente.
+              </p>
+            </div>
+          </div>
+
+          <!-- PASO 2: EN CURSO (ACTUAL) -->
+          <div class="timeline-item-senior active-step">
+            <div class="timeline-badge-circle timeline-badge-active" aria-hidden="true">⚙️</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                <h4 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary);">2. En Evaluación por Dirección de Obras (Paso Actual)</h4>
+                <span style="font-size: 1rem; color: var(--color-primary); font-weight: 700;">Ayer — 07 de Octubre 2024</span>
+              </div>
+              <p style="font-size: 1.1rem; color: var(--text-body); margin-top: 6px;">
+                El equipo técnico está revisando su caso y coordinando la visita a terreno.
+              </p>
+              
+              <!-- Mensaje oficial en lenguaje claro -->
+              <div class="official-message-box" role="region" aria-label="Mensaje oficial de la municipalidad">
+                <strong style="color: var(--color-primary); display: block; font-size: 1.15rem; margin-bottom: 4px;">
+                  💬 Mensaje oficial del inspector municipal:
+                </strong>
+                <p style="margin: 0; color: #0F172A;">
+                  "Estimado Don Juan, hemos recibido su requerimiento por el mal estado del camino en el sector rural. Se ha asignado al inspector <strong>Carlos Riquelme</strong>, quien acudirá a inspeccionar el terreno este jueves con el camión motoniveladora para programar los trabajos de emparejamiento y ripio."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 3: PENDIENTE -->
+          <div class="timeline-item-senior">
+            <div class="timeline-badge-circle timeline-badge-pending" aria-hidden="true">⏳</div>
+            <div style="flex: 1;">
+              <h4 style="font-size: 1.25rem; font-weight: 700; color: #475569;">3. Ejecución de Trabajos y Cierre del Caso</h4>
+              <span style="font-size: 0.98rem; color: #64748B;">Etapa pendiente (Programada para esta semana)</span>
+              <p style="font-size: 1.05rem; color: var(--text-muted); margin-top: 6px;">
+                Una vez realizados los trabajos en el camino, un funcionario le llamará por teléfono para confirmar que la solución quedó lista y satisfactoria para usted.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BOTONES DE ACCIÓN AL FINAL -->
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border-subtle); justify-content: space-between;">
+        
+        <a href="../index.html" class="btn btn-secondary"
+           data-tooltip-what="Botón para regresar a la página de inicio."
+           data-tooltip-action="Al hacer clic volverá a la portada principal.">
+          ← Volver al Inicio
+        </a>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="solicitud.html" class="btn btn-primary"
+             data-tooltip-what="Botón para ingresar otra solicitud distinta."
+             data-tooltip-action="Al hacer clic podrá ingresar un nuevo trámite diferente a este.">
+            + Ingresar Otra Solicitud
+          </a>
+
+          <button type="button" class="btn btn-secondary" onclick="window.print();"
+                  data-tooltip-what="Botón para imprimir este comprobante en papel."
+                  data-tooltip-action="Al hacer clic se abrirá la opción de imprimir en su impresora de casa para guardar una copia en papel.">
+            🖨️ Imprimir Comprobante
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       5. PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="site-footer-senior" role="contentinfo">
+    <div class="footer-inner-senior">
+      <div>
+        <h3 class="footer-col-title">Municipalidad de Padre Las Casas</h3>
+        <p class="footer-text">Avenida Maquehue Nº 1441, Padre Las Casas.</p>
+        <p class="footer-text">Teléfono Gratuito Adulto Mayor: <strong>800 200 400</strong></p>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Enlaces Útiles</h3>
+        <ul class="footer-links-list">
+          <li class="footer-link-item"><a href="../index.html">Volver a Inicio</a></li>
+          <li class="footer-link-item"><a href="solicitud.html">Ingresar una Solicitud</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <span>© 2024 Ilustre Municipalidad de Padre Las Casas — Diseñado bajo Norma WCAG 2.1 AAA.</span>
+    </div>
+  </footer>
+
+  <script src="../js/accessibility.js"></script>
+
+</body>
+</html>
